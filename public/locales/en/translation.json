@@ -1,0 +1,12 @@
+{
+    "title": "description in one phrase",
+    "description": {
+      "longuer": "To get a longuer description."
+    },
+    "lang":"fr",
+    "menu":{
+      "about":"About",
+      "project": "Project",
+      "contact":"Contact"
+    }
+  }

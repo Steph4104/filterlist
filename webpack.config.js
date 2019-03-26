@@ -18,11 +18,27 @@ module.exports = {
       use: [{
         loader: 'babel-loader',
       }],
-    },{
+    },
+    {
+      test: /\.scss$/,
+      use: [
+        {
+          loader: "style-loader" // creates style nodes from JS strings
+        },
+        {
+          loader: "css-loader" // translates CSS into CommonJS
+        },
+        {
+          loader: "sass-loader" // compiles Sass to CSS
+        }
+      ]
+    },
+    {
       test: /\.css$/,
       use: ['style-loader', 'css-loader']
     },
     {test: /\.(jpe?g|png|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/, loader: 'url-loader?limit=100000'}],
+    
   },
   resolve: {
     modules: [
@@ -32,7 +48,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   devServer: {
-    host: '192.168.2.37',
+    host: 'localhost',
     port:'8080',
     compress: true,
 }

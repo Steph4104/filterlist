@@ -10,7 +10,7 @@ const Paginator = ({
   setPage,
 }) => {
 
-  const pagesLength = Math.ceil(count / 10);
+  const pagesLength = Math.ceil(count / 9);
 
   const pages = [];
 
@@ -29,7 +29,7 @@ const Paginator = ({
       </Page>,
     );
   }
-console.log(count, perPage, current);
+
   return (
     <div>
       {pages}

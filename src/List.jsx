@@ -12,10 +12,13 @@ import {
 import Paginator from './Paginator';
 import Th from './Th';
 
-import { Container, Row, Col, Card, CardImg, CardText, CardBlock, CardTitle, CardSubtitle, CardColumns, Form, Label, Input, FormGroup, Button, ButtonGroup } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Container, Row, Col, Card, CardImg, CardText, CardBlock, CardTitle, CardSubtitle, CardColumns, Form, Label, Input, FormGroup, Button, ButtonGroup } from 'reactstrap';
 
 import * as api from './api';
 import './costum.css';
+import Example from './Menu';
+import { Link } from 'react-router-dom'
+import { withNamespaces, NamespacesConsumer, Trans } from 'react-i18next';
 
 /**
  * @param {...String} queryNames
@@ -35,14 +38,19 @@ class List extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      modal: false,
+      src:""
+    };
+  this.toggle = this.toggle.bind(this);
 
-    this.setBrand = this.setInputFilterValue.bind(this, 'brand');
-    this.applyBrand = this.applyFilter.bind(this, 'brand');
-    this.resetBrand = this.resetFilter.bind(this, 'brand');
+    // this.setBrand = this.setInputFilterValue.bind(this, 'brand');
+    // this.applyBrand = this.applyFilter.bind(this, 'brand');
+    // this.resetBrand = this.resetFilter.bind(this, 'brand');
 
-    this.setOwner = this.setInputFilterValue.bind(this, 'owner');
-    this.applyOwner = this.applyFilter.bind(this, 'owner');
-    this.resetOwner = this.resetFilter.bind(this, 'owner');
+    // this.setOwner = this.setInputFilterValue.bind(this, 'owner');
+    // this.applyOwner = this.applyFilter.bind(this, 'owner');
+    // this.resetOwner = this.resetFilter.bind(this, 'owner');
 
     this.togglesidewalk = this.toggleCheckbox.bind(this, 'sidewalk');
     this.togglepool = this.toggleCheckbox.bind(this, 'pool');
@@ -57,16 +65,18 @@ class List extends Component {
     this.reloadListener();
   }
 
+  toggle(src) {
+  this.setState(prevState => ({
+    modal: !prevState.modal,
+    src:src
+  }));
+}
   reloadListener() {
     const browserHistory = createBrowserHistory();
     if (window.performance) {
       if (performance.navigation.type == 1) {
-        alert( "This page is reloaded" );
-        this.props.history.push('');
-        
-      } else {
-        alert( "This page is not reloaded");
-      }
+        this.props.history.push('');      
+      } 
     }
   }
 
@@ -145,7 +155,7 @@ class List extends Component {
       },
     } = this.props;
 
-    setAndApplyFilter('perPage', 10);
+    setAndApplyFilter('perPage', 9);
   }
 
   setPage(page) {
@@ -159,6 +169,7 @@ class List extends Component {
   }
 
   render() {
+    const { t, i18n } = this.props;
     const {
       isListInited,
       listState,
@@ -191,10 +202,11 @@ class List extends Component {
 
     return (
       <Container>
+        <Example/>
         <Row>
           <Col xs="12">
             <ButtonGroup>
-              <Button color="primary" onClick={() => this.togglesidewalk()} active={filters.sidewalk || false}>Sidewalk</Button>
+              <Button color="primary" onClick={() => this.togglesidewalk()} active={filters.sidewalk || false}>{t('menu.about')}</Button>
               <Button color="primary" onClick={() => this.togglepool()} active={filters.sidewalk || false}>Pool</Button>
               <Button color="primary" onClick={() => this.toggleback()} active={filters.sidewalk || false}>Back</Button>
             </ButtonGroup>
@@ -206,26 +218,24 @@ class List extends Component {
             </Button>
           </Col>
         </Row>
-        <CardColumns>
+       
+<div id="photos">
+
             {
               items.map(({
                 id,
-                brand,
+                src,
                 owner,
                 color,
                 info,
               }) => (
-                <Card key={id}>
-                  <CardImg top width="100%" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
-                  <CardBlock>
-                    <CardTitle>{ id }</CardTitle>
-                    <CardSubtitle>{ brand } - { owner }</CardSubtitle>
-                    <CardText>{ color }</CardText>
-                  </CardBlock>
-                </Card>
+         
+                  <img  onClick={(event) => this.toggle(src)} src={require(`img/${src}.jpg`)} alt="Card image cap" />
+
               ))
             }
-          </CardColumns>
+
+          </div>
         {
           additional && (
             <h4>
@@ -242,19 +252,6 @@ class List extends Component {
           )
         }
 
-        <p>
-          Items per page:
-          {' '}
-          <select
-            value={perPage}
-            onChange={this.setPerPage}
-          >
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-          </select>
-        </p>
-
         {
           additional && (
             <Paginator
@@ -266,6 +263,34 @@ class List extends Component {
             />
           )
         }
+        <div>
+     
+
+
+
+
+
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+        <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+        <ModalBody>
+         
+
+{this.state.src}
+        
+
+<img src={`src/img/${this.state.src}.jpg`} alt="Card image cap" />
+
+
+
+
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" onClick={(event) => this.toggle()}>Do Something</Button>
+          <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+        </ModalFooter>
+      </Modal>
+    </div>
     </Container>  
     );
   }
@@ -358,4 +383,4 @@ export default createFilterlist({
     && location.search !== prevProps.location.search,
 
   isRecountAsync: true,
-})(List);
+}) (withNamespaces('translation')(List));

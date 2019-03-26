@@ -9,9 +9,16 @@ import List from './List';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
+import App from "./app";
+import {I18nextProvider} from 'react-i18next';
+import i18next from 'i18next';
+import './i18n';
+
 render(
-  <BrowserRouter>
-    <Route component={List} />
-  </BrowserRouter>,
+  <I18nextProvider i18n={i18next}>
+    <BrowserRouter>
+    <App />
+    </BrowserRouter>
+  </I18nextProvider>,
   document.getElementById('app'),
 );
