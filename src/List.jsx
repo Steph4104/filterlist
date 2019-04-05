@@ -230,7 +230,7 @@ class List extends Component {
                 info,
               }) => (
          
-                  <img  onClick={(event) => this.toggle(src)} src={require(`img/${src}.jpg`)} alt="Card image cap" />
+                  <img key={id}  onClick={(event) => this.toggle(src)} src={require(`img/${src}.jpg`)} alt="Card image cap" />
 
               ))
             }
@@ -270,8 +270,8 @@ class List extends Component {
 
 
 
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-        <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+        <Modal isOpen={this.state.modal} toggle={(event) => this.toggle()} className={this.props.className}>
+        <ModalHeader toggle={(event) => this.toggle()}>Modal title</ModalHeader>
         <ModalBody>
          
 
@@ -283,11 +283,10 @@ class List extends Component {
 
 
 
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </ModalBody>
+              </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={(event) => this.toggle()}>Do Something</Button>
-          <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+
         </ModalFooter>
       </Modal>
     </div>
