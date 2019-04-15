@@ -1,7 +1,6 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import List from './List'
-import detail from './detail'
 
 
 // The Main component renders one of the three provided
@@ -13,7 +12,6 @@ const Main = () => (
   <main>
     <Switch>
       <Route exact path='/' component={List}/>
-      <Route path='/detail' component={detail}/>
     </Switch>
   </main>
 )

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import './styles/Pagination.scss';
 const buttonStyle = {
   marginRight: '10px',
 };
@@ -42,6 +42,7 @@ class Page extends Component {
 
     return (
       <button
+      className="pagination-style"
         type="button"
         onClick={this.setPage}
         disabled={isCurrent}

@@ -8,14 +8,14 @@ import {
   createListStateShape,
   listActionsShape,
 } from '@vtaits/react-filterlist';
-
+import './styles/List.scss';
 import Paginator from './Paginator';
 import Th from './Th';
 
 import { Modal, ModalHeader, ModalBody, ModalFooter, Container, Row, Col, Card, CardImg, CardText, CardBlock, CardTitle, CardSubtitle, CardColumns, Form, Label, Input, FormGroup, Button, ButtonGroup } from 'reactstrap';
 
 import * as api from './api';
-import './costum.css';
+
 import Example from './Menu';
 import { Link } from 'react-router-dom'
 import { withNamespaces, NamespacesConsumer, Trans } from 'react-i18next';
@@ -55,6 +55,14 @@ class List extends Component {
     this.togglesidewalk = this.toggleCheckbox.bind(this, 'sidewalk');
     this.togglepool = this.toggleCheckbox.bind(this, 'pool');
     this.toggleback = this.toggleCheckbox.bind(this, 'back');
+    this.togglefront = this.toggleCheckbox.bind(this, 'front');
+    this.togglewall = this.toggleCheckbox.bind(this, 'wall');
+    this.togglestair = this.toggleCheckbox.bind(this, 'stair');
+    this.toggleflower = this.toggleCheckbox.bind(this, 'flower');
+    this.togglepave = this.toggleCheckbox.bind(this, 'pave');
+    this.toggleedging = this.toggleCheckbox.bind(this, 'edging');
+    this.toggleretainingwall = this.toggleCheckbox.bind(this, 'retainingwall');
+    this.toggleasphalt = this.toggleCheckbox.bind(this, 'asphalt');
 
     this.hideAllColors = this.hideAllColors.bind(this);
     this.resetAllColors = this.resetAllColors.bind(this);
@@ -145,7 +153,7 @@ class List extends Component {
       },
     } = this.props;
 
-    resetFilters(['sidewalk', 'pool', 'back']);
+    resetFilters(['sidewalk', 'pool', 'back','retainingwall','flower', 'asphalt', 'edging','front','stair', 'wall', 'pave']);
   }
 
   setPerPage({ target: { value } }) {
@@ -204,19 +212,50 @@ class List extends Component {
       <Container>
         <Example/>
         <Row>
-          <Col xs="12">
-            <ButtonGroup>
-              <Button color="primary" onClick={() => this.togglesidewalk()} active={filters.sidewalk || false}>{t('menu.about')}</Button>
-              <Button color="primary" onClick={() => this.togglepool()} active={filters.sidewalk || false}>Pool</Button>
-              <Button color="primary" onClick={() => this.toggleback()} active={filters.sidewalk || false}>Back</Button>
-            </ButtonGroup>
+            <Col xs="3">
+              {/* <Input type="checkbox" checked={ filters.front || false } color="primary" onChange={ setAndApplyFilter.bind(null, 'showfront', !filters.showfront) } active={filters.front || false}/>{t('filter.front')} */}
+              <Button color="primary" onClick={() => this.togglefront()} active={filters.front || false}>Avant</Button>
+            </Col>
+            <Col xs="3">
+              <Button color="primary" onClick={() => this.togglepool()} active={filters.pool || false}>Contour de piscine</Button>
+            </Col>
+            <Col xs="3">
+              <Button color="primary" onClick={() => this.toggleback()} active={filters.back || false}>arrière</Button>
+            </Col>
+            <Col xs="3">
+              <Button color="primary" onClick={() => this.togglemuret()} active={filters.wall || false}>muret</Button>
+            </Col>
+            <Col xs="3">
+              <Button color="primary" onClick={() => this.togglesidewalk()} active={filters.sidewalk || false}>trotoir</Button>
+            </Col>
+            <Col xs="3">
+              <Button color="primary" onClick={() => this.togglepave()} active={filters.pave || false}>pavé</Button>
+            </Col>
+            <Col xs="3">
+              <Button color="primary" onClick={() => this.toggleedging()} active={filters.edging || false}>bordure</Button>
+            </Col>
+            <Col xs="3">
+              <Button color="primary" onClick={() => this.togglestair()} active={filters.stair || false}>escalier</Button>
+            </Col>
+            <Col xs="3">
+              <Button color="primary" onClick={() => this.toggleflower()} active={filters.flower || false}>Fleur</Button>
+            </Col>
+            <Col xs="3">
+              <Button color="primary" onClick={() => this.toggleretainingwall()} active={filters.retainingwall || false}>Mure de soutient</Button>
+            </Col>
+            <Col xs="3">
+              <Button color="primary" onClick={() => this.toggleasphalt()} active={filters.asphalt || false}>Asphalt</Button>
+            </Col>
+           
+            <Col xs="3">
             <Button
               type="button"
               onClick={this.resetAllColors}
             >
               Uncheck all checkboxes
             </Button>
-          </Col>
+            </Col>
+      
         </Row>
        
 <div id="photos">

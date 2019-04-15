@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withNamespaces, NamespacesConsumer, Trans } from 'react-i18next';
 import PropTypes from 'prop-types';
 //import { toElement as scrollToElement } from '@utils/scroll';
-import Logo from './images/logo_paveunisousa.jpg';
+//import Logo from './img/logo_paveunisousa.jpg';
 import './styles/Menu.scss';
 
 class Menu extends Component {
@@ -43,16 +43,22 @@ class Menu extends Component {
     const { t, i18n } = this.props;
     var lang = t('lang');
     return (
+      <div>
+        <div className="header">
+          <h1>Pavé Uni Sousa</h1>
+          <h3>Project</h3>
+        </div>
+     
       <nav
         ref={(elem) => {
           this.nav = elem;
         }}
       >
         <div className="menu">
-          <div className="menu-item logo">
+          {/* <div className="menu-item logo">
             <img className="img-logo" src={Logo}/>
-          </div>
-          <div
+          </div> */}
+          {/* <div
             className="menu-item active"
            
           >
@@ -69,7 +75,7 @@ class Menu extends Component {
             
           >
             {t('menu.contact')}
-          </div>
+          </div> */}
           <div
             className="menu-item"
             onClick={() => i18n.changeLanguage(lang)}
@@ -77,7 +83,8 @@ class Menu extends Component {
             {t('lang')}
           </div>
         </div>
-      </nav>
+      </nav> 
+      </div>
     );
   }
 }
