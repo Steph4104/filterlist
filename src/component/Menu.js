@@ -3,7 +3,7 @@ import { withNamespaces, NamespacesConsumer, Trans } from 'react-i18next';
 import PropTypes from 'prop-types';
 //import { toElement as scrollToElement } from '@utils/scroll';
 //import Logo from './img/logo_paveunisousa.jpg';
-import './styles/Menu.scss';
+import '../styles/Menu.scss';
 
 class Menu extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class Menu extends Component {
       <div>
         <div className="header">
           <h1>Pavé Uni Sousa</h1>
-          <h3>Project</h3>
+          <h3>Réalisations</h3>
         </div>
      
       <nav

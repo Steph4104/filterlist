@@ -1,24 +1,30 @@
-.btn-primary {
-    color: #000 !important;
-    background-color: transparent !important;
-    border-color: transparent !important;
+.filter{
+  .btn-primary {
+    color: #6a0105;
+    background-color: transparent;
+    border-color: transparent;
+  }
+  .btn-primary:hover{
+    color:red;
+    border-color: transparent;
+    border-radius: none;
+    border-bottom: #6a0105 solid 1px;
+    background-color: transparent;
+    
+  }
+  .btn-primary:not(:disabled):not(.disabled).active {
+    color: red;
+    background-color: transparent;
+    border-color: transparent;
+    border-bottom: #6a0105 solid 1px;
+    border-radius: 0%;
+  }
+  .btn-secondary {
+    color: #6a0105;
+    background-color: transparent;
+    border: #6a0105 solid 1px;
+  }
 }
-
-.header{
-  text-align: center;
-}
-.searchable-container{margin:20px 0 0 0}
-.searchable-container label.btn-default.active{background-color:#007ba7;color:#FFF}
-.searchable-container label.btn-default{width:90%;border:1px solid #efefef;margin:5px; box-shadow:5px 8px 8px 0 #ccc;}
-.searchable-container label .bizcontent{width:100%;}
-.searchable-container .btn-group{width:90%}
-.searchable-container .btn span.glyphicon{
-    opacity: 0;
-}
-.searchable-container .btn.active span.glyphicon {
-    opacity: 1;
-}
-
 
 #photos {
     /* Prevent vertical gaps */

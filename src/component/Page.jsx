@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import './styles/Pagination.scss';
+import '../styles/Pagination.scss';
 const buttonStyle = {
   marginRight: '10px',
 };

@@ -5,7 +5,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import React from 'react';
 import { render } from 'react-dom';
 
-import List from './List';
+import List from './pages/List';
 
 import 'bootstrap/dist/css/bootstrap.css';
 

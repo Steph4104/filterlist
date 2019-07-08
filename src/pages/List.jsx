@@ -8,15 +8,15 @@ import {
   createListStateShape,
   listActionsShape,
 } from '@vtaits/react-filterlist';
-import './styles/List.scss';
-import Paginator from './Paginator';
-import Th from './Th';
+import '../styles/List.scss';
+import Paginator from '../component/Paginator';
+import Th from '../component/Th';
 
 import { Modal, ModalHeader, ModalBody, ModalFooter, Container, Row, Col, Card, CardImg, CardText, CardBlock, CardTitle, CardSubtitle, CardColumns, Form, Label, Input, FormGroup, Button, ButtonGroup } from 'reactstrap';
 
-import * as api from './api';
+import * as api from '../component/api';
 
-import Example from './Menu';
+import Example from '../component/Menu';
 import { Link } from 'react-router-dom'
 import { withNamespaces, NamespacesConsumer, Trans } from 'react-i18next';
 
@@ -211,6 +211,7 @@ class List extends Component {
     return (
       <Container>
         <Example/>
+        <div className="filter">
         <Row>
             <Col xs="3">
               {/* <Input type="checkbox" checked={ filters.front || false } color="primary" onChange={ setAndApplyFilter.bind(null, 'showfront', !filters.showfront) } active={filters.front || false}/>{t('filter.front')} */}
@@ -250,13 +251,15 @@ class List extends Component {
             <Col xs="3">
             <Button
               type="button"
+              className="clearBoxe"
               onClick={this.resetAllColors}
             >
-              Uncheck all checkboxes
+              Clear
             </Button>
             </Col>
       
         </Row>
+        </div>
        
 <div id="photos">
 
