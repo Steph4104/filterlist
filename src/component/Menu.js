@@ -47,14 +47,14 @@ class Menu extends Component {
         <div className="header">
           <h1>Pavé Uni Sousa</h1>
           <h3>Réalisations</h3>
-        </div>
+        {/* </div> */}
      
       <nav
         ref={(elem) => {
           this.nav = elem;
         }}
       >
-        <div className="menu">
+        {/* <div className="menu"> */}
           {/* <div className="menu-item logo">
             <img className="img-logo" src={Logo}/>
           </div> */}
@@ -82,9 +82,9 @@ class Menu extends Component {
           >
             {t('lang')}
           </div>
-        </div>
+        
       </nav> 
-      </div>
+      </div></div>
     );
   }
 }

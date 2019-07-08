@@ -8,5 +8,18 @@
       "about":"À propos",
       "project": "Projet",
       "contact":"Contact"
+    },
+    "filter":{
+      "front":"Avant",
+      "pool":"Contour de piscine",
+      "back":"Arrière",
+      "wall":"Mur",
+      "sidewalk":"Trottoir",
+      "pave":"Pavé",
+      "edging":"Bordure",
+      "stair":"Escalier",
+      "flower":"Fleur",
+      "retainingwall":"Mur de soutien",
+      "asphalt":"Asphalt"
     }
   }

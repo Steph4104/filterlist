@@ -1,4 +1,4 @@
-import carsGenerator from './carsGenerator';
+import Images from './images';
 
 function delay(time) {
   return new Promise((resolve) => {
@@ -8,9 +8,9 @@ function delay(time) {
   });
 }
 
-const cars = carsGenerator();
+const images = Images();
 
-export async function loadCars(params) {
+export async function loadImages(params) {
   const page = params.page || 1;
   const perPage = 9;
 
@@ -20,20 +20,29 @@ export async function loadCars(params) {
   const sidewalk = Boolean(params.sidewalk);
   const pool = Boolean(params.pool);
   const back = Boolean(params.back);
+  const front = Boolean(params.front);
+  const wall = Boolean(params.wall);
+  const stair = Boolean(params.stair);
+  const flower = Boolean(params.flower);
+  const edging = Boolean(params.edging);
+  const retainingwall = Boolean(params.retainingwall);
+  const asphalt = Boolean(params.asphalt);
+  const pave = Boolean(params.pave);
+  
 
   const { sort } = params.sort;
   const desc = sort && sort[0] === '-';
   const sortParam = sort && (desc ? sort.substring(1, sort.length) : sort);
 
-  const sortedCars = sort ?
-    cars.sort((car1, car2) => {
+  const sortedImages = sort ?
+    images.sort((image1, image2) => {
 
       return desc ? 1 : -1;
     }) :
-    cars;
+    images;
 
-  const filteredCars = sortedCars.filter((car) => {
-    if (!sidewalk && !pool && !back) {
+  const filteredImages = sortedImages.filter((image) => {
+    if (!sidewalk && !pool && !back && !front && !wall && !stair && !flower && !edging && !retainingwall && !asphalt && !pave) {
       return true
     }
     // if (brand && !car.brand.toLowerCase().includes(brand)) {
@@ -44,7 +53,7 @@ export async function loadCars(params) {
     //   return false;
     // }
 
-    var info_select = car.info.split(',');
+    var info_select = image.info.split(',');
     for (var i=0; i < info_select.length; i++){
       if(sidewalk && info_select[i]=== 'sidewalk'){
         return true
@@ -55,7 +64,30 @@ export async function loadCars(params) {
       if(back && info_select[i]=== 'back'){
         return true
       }
- 
+      if(front && info_select[i]=== 'front'){
+        return true
+      }
+      if(wall && info_select[i]=== 'wall'){
+        return true
+      }
+      if(stair && info_select[i]=== 'stair'){
+        return true
+      }
+      if(flower && info_select[i]=== 'flower'){
+        return true
+      }
+      if(edging && info_select[i]=== 'edging'){
+        return true
+      }
+      if(pave && info_select[i]=== 'pave'){
+        return true
+      }
+      if(retainingwall && info_select[i]=== 'retainingwall'){
+        return true
+      }
+      if(asphalt && info_select[i]=== 'asphalt'){
+        return true
+      }
   }
 
   return false
@@ -64,7 +96,7 @@ export async function loadCars(params) {
   const offset = (page - 1) * perPage;
 
   return {
-    cars: filteredCars.slice(offset, offset + perPage),
-    count: filteredCars.length,
+    images: filteredImages.slice(offset, offset + perPage),
+    count: filteredImages.length,
   };
 }

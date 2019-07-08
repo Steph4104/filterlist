@@ -42,16 +42,7 @@ class List extends Component {
       modal: false,
       src:""
     };
-  this.toggle = this.toggle.bind(this);
-
-    // this.setBrand = this.setInputFilterValue.bind(this, 'brand');
-    // this.applyBrand = this.applyFilter.bind(this, 'brand');
-    // this.resetBrand = this.resetFilter.bind(this, 'brand');
-
-    // this.setOwner = this.setInputFilterValue.bind(this, 'owner');
-    // this.applyOwner = this.applyFilter.bind(this, 'owner');
-    // this.resetOwner = this.resetFilter.bind(this, 'owner');
-
+    this.toggle = this.toggle.bind(this);
     this.togglesidewalk = this.toggleCheckbox.bind(this, 'sidewalk');
     this.togglepool = this.toggleCheckbox.bind(this, 'pool');
     this.toggleback = this.toggleCheckbox.bind(this, 'back');
@@ -63,10 +54,7 @@ class List extends Component {
     this.toggleedging = this.toggleCheckbox.bind(this, 'edging');
     this.toggleretainingwall = this.toggleCheckbox.bind(this, 'retainingwall');
     this.toggleasphalt = this.toggleCheckbox.bind(this, 'asphalt');
-
-    this.hideAllColors = this.hideAllColors.bind(this);
-    this.resetAllColors = this.resetAllColors.bind(this);
-
+    this.resetAll = this.resetAll.bind(this);
     this.setPerPage = this.setPerPage.bind(this);
     this.setPage = this.setPage.bind(this);
 
@@ -132,21 +120,7 @@ class List extends Component {
     setAndApplyFilter(filterName, !appliedFilters[filterName]);
   }
 
-  hideAllColors() {
-    const {
-      listActions: {
-        setAndApplyFilters,
-      },
-    } = this.props;
-
-    setAndApplyFilters({
-      sidewalk: true,
-      pool: true,
-      back: true,
-    });
-  }
-
-  resetAllColors() {
+  resetAll() {
     const {
       listActions: {
         resetFilters,
@@ -215,44 +189,44 @@ class List extends Component {
         <Row>
             <Col xs="3">
               {/* <Input type="checkbox" checked={ filters.front || false } color="primary" onChange={ setAndApplyFilter.bind(null, 'showfront', !filters.showfront) } active={filters.front || false}/>{t('filter.front')} */}
-              <Button color="primary" onClick={() => this.togglefront()} active={filters.front || false}>Avant</Button>
+              <Button color="primary" onClick={() => this.togglefront()} active={filters.front || false}>{t('filter.front')}</Button>
             </Col>
             <Col xs="3">
-              <Button color="primary" onClick={() => this.togglepool()} active={filters.pool || false}>Contour de piscine</Button>
+              <Button color="primary" onClick={() => this.togglepool()} active={filters.pool || false}>{t('filter.pool')}</Button>
             </Col>
             <Col xs="3">
-              <Button color="primary" onClick={() => this.toggleback()} active={filters.back || false}>arrière</Button>
+              <Button color="primary" onClick={() => this.toggleback()} active={filters.back || false}>{t('filter.back')}</Button>
             </Col>
             <Col xs="3">
-              <Button color="primary" onClick={() => this.togglemuret()} active={filters.wall || false}>muret</Button>
+              <Button color="primary" onClick={() => this.togglewall()} active={filters.wall || false}>{t('filter.wall')}</Button>
             </Col>
             <Col xs="3">
-              <Button color="primary" onClick={() => this.togglesidewalk()} active={filters.sidewalk || false}>trotoir</Button>
+              <Button color="primary" onClick={() => this.togglesidewalk()} active={filters.sidewalk || false}>{t('filter.sidewalk')}</Button>
             </Col>
             <Col xs="3">
-              <Button color="primary" onClick={() => this.togglepave()} active={filters.pave || false}>pavé</Button>
+              <Button color="primary" onClick={() => this.togglepave()} active={filters.pave || false}>{t('filter.pave')}</Button>
             </Col>
             <Col xs="3">
-              <Button color="primary" onClick={() => this.toggleedging()} active={filters.edging || false}>bordure</Button>
+              <Button color="primary" onClick={() => this.toggleedging()} active={filters.edging || false}>{t('filter.edging')}</Button>
             </Col>
             <Col xs="3">
-              <Button color="primary" onClick={() => this.togglestair()} active={filters.stair || false}>escalier</Button>
+              <Button color="primary" onClick={() => this.togglestair()} active={filters.stair || false}>{t('filter.stair')}</Button>
             </Col>
             <Col xs="3">
-              <Button color="primary" onClick={() => this.toggleflower()} active={filters.flower || false}>Fleur</Button>
+              <Button color="primary" onClick={() => this.toggleflower()} active={filters.flower || false}>{t('filter.flower')}</Button>
             </Col>
             <Col xs="3">
-              <Button color="primary" onClick={() => this.toggleretainingwall()} active={filters.retainingwall || false}>Mure de soutient</Button>
+              <Button color="primary" onClick={() => this.toggleretainingwall()} active={filters.retainingwall || false}>{t('filter.retainingwall')}</Button>
             </Col>
             <Col xs="3">
-              <Button color="primary" onClick={() => this.toggleasphalt()} active={filters.asphalt || false}>Asphalt</Button>
+              <Button color="primary" onClick={() => this.toggleasphalt()} active={filters.asphalt || false}>{t('filter.asphalt')}</Button>
             </Col>
            
             <Col xs="3">
             <Button
               type="button"
               className="clearBoxe"
-              onClick={this.resetAllColors}
+              onClick={this.resetAll}
             >
               Clear
             </Button>
@@ -306,32 +280,16 @@ class List extends Component {
           )
         }
         <div>
-     
-
-
-
-
 
         <Modal isOpen={this.state.modal} toggle={(event) => this.toggle()} className={this.props.className}>
-        <ModalHeader toggle={(event) => this.toggle()}>Modal title</ModalHeader>
-        <ModalBody>
-         
-
-{this.state.src}
-        
-
-<img src={`src/img/${this.state.src}.jpg`} alt="Card image cap" />
-
-
-
-
-              </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={(event) => this.toggle()}>Do Something</Button>
-
-        </ModalFooter>
-      </Modal>
-    </div>
+          <ModalBody>
+            <img src={`src/img/${this.state.src}.jpg`} alt="Card image cap" />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={(event) => this.toggle()}>Close</Button>
+          </ModalFooter>
+        </Modal>
+      </div>
     </Container>  
     );
   }
@@ -342,13 +300,13 @@ export default createFilterlist({
     sort,
     appliedFilters,
   }) => {
-    const response = await api.loadCars({
+    const response = await api.loadImages({
       ...appliedFilters,
       sort: `${sort.param ? `${sort.asc ? '' : '-'}${sort.param}` : ''}`,
     });
 
     return {
-      items: response.cars,
+      items: response.images,
       additional: {
         count: response.count,
       },
@@ -391,8 +349,6 @@ export default createFilterlist({
     } = parsed;
 
     const appliedFilters = {
-      brand: parsed.brand || '',
-      owner: parsed.owner || '',
       sidewalk: Boolean(parsed.sidewalk),
       pool: Boolean(parsed.pool),
       back: Boolean(parsed.back),
