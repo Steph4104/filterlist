@@ -184,41 +184,45 @@ class List extends Component {
 
     return (
       <Container>
+        <Row>
+          <Col xs="12">
         <Example/>
+        </Col>
+        </Row>
         <div className="filter">
         <Row>
-            <Col xs="3">
+            <Col xs="4">
               {/* <Input type="checkbox" checked={ filters.front || false } color="primary" onChange={ setAndApplyFilter.bind(null, 'showfront', !filters.showfront) } active={filters.front || false}/>{t('filter.front')} */}
               <Button color="primary" onClick={() => this.togglefront()} active={filters.front || false}>{t('filter.front')}</Button>
             </Col>
-            <Col xs="3">
+            <Col xs="4">
               <Button color="primary" onClick={() => this.togglepool()} active={filters.pool || false}>{t('filter.pool')}</Button>
             </Col>
-            <Col xs="3">
+            <Col xs="4">
               <Button color="primary" onClick={() => this.toggleback()} active={filters.back || false}>{t('filter.back')}</Button>
             </Col>
-            <Col xs="3">
+            <Col xs="4">
               <Button color="primary" onClick={() => this.togglewall()} active={filters.wall || false}>{t('filter.wall')}</Button>
             </Col>
-            <Col xs="3">
+            <Col xs="4">
               <Button color="primary" onClick={() => this.togglesidewalk()} active={filters.sidewalk || false}>{t('filter.sidewalk')}</Button>
             </Col>
-            <Col xs="3">
+            <Col xs="4">
               <Button color="primary" onClick={() => this.togglepave()} active={filters.pave || false}>{t('filter.pave')}</Button>
             </Col>
-            <Col xs="3">
+            <Col xs="4">
               <Button color="primary" onClick={() => this.toggleedging()} active={filters.edging || false}>{t('filter.edging')}</Button>
             </Col>
-            <Col xs="3">
+            <Col xs="4">
               <Button color="primary" onClick={() => this.togglestair()} active={filters.stair || false}>{t('filter.stair')}</Button>
             </Col>
-            <Col xs="3">
+            <Col xs="4">
               <Button color="primary" onClick={() => this.toggleflower()} active={filters.flower || false}>{t('filter.flower')}</Button>
             </Col>
-            <Col xs="3">
+            <Col xs="4">
               <Button color="primary" onClick={() => this.toggleretainingwall()} active={filters.retainingwall || false}>{t('filter.retainingwall')}</Button>
             </Col>
-            <Col xs="3">
+            <Col xs="4">
               <Button color="primary" onClick={() => this.toggleasphalt()} active={filters.asphalt || false}>{t('filter.asphalt')}</Button>
             </Col>
            

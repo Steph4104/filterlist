@@ -48,7 +48,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   devServer: {
-    host: 'localhost',
+    host: '192.168.0.152',
     port:'8080',
     compress: true,
 }

@@ -8,6 +8,8 @@ nav {
   display: flex;
  // align-items: center;
  // justify-content: flex-end;
+ display: contents;
+
 
   @include breakpoint-small-down {
     height: 4rem;
@@ -22,8 +24,7 @@ nav {
     &-item {
       padding: 0.25rem 0;
       margin: 0 1rem;
-      font-size: 1.25rem;
-      font-weight: 400;
+      font-size: 2rem;
       border-bottom: 2px solid transparent;
       &:hover{
         cursor: pointer;
@@ -49,4 +50,12 @@ nav {
   color: #6a0105;
   font-family: 'Gravity', sans-serif;
 
+}
+.header h3, .header nav .menu-item {
+  display: inline;
+  vertical-align: top;
+}
+
+.header nav .menu-item{
+  float:right;
 }
