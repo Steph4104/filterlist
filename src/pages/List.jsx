@@ -17,13 +17,16 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Container, Row, Col, Card, 
 import * as api from '../component/api';
 
 import Example from '../component/Menu';
-import { Link } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import { withNamespaces, NamespacesConsumer, Trans } from 'react-i18next';
+import styled from "styled-components";
 
 /**
  * @param {...String} queryNames
  */
 
+
+ 
 class List extends Component {
   static propTypes = {
     isListInited: PropTypes.bool.isRequired,
@@ -40,7 +43,8 @@ class List extends Component {
     super(props);
     this.state = {
       modal: false,
-      src:""
+      src:"",
+      isExpanded: false
     };
     this.toggle = this.toggle.bind(this);
     this.togglesidewalk = this.toggleCheckbox.bind(this, 'sidewalk');
@@ -60,6 +64,8 @@ class List extends Component {
 
     this.reloadListener();
   }
+
+  
 
   toggle(src) {
   this.setState(prevState => ({
@@ -150,7 +156,17 @@ class List extends Component {
     setAndApplyFilter('page', page);
   }
 
+  handleToggle(e) {
+    e.preventDefault();
+    this.setState({
+      isExpanded: !this.state.isExpanded
+    });
+  }
+  
+
   render() {
+    const { isExpanded } = this.state;
+
     const { t, i18n } = this.props;
     const {
       isListInited,
@@ -184,49 +200,50 @@ class List extends Component {
 
     return (
       <Container>
-        <Row>
-          <Col xs="12">
         <Example/>
-        </Col>
-        </Row>
-        <div className="filter">
-        <Row>
-            <Col xs="4">
-              {/* <Input type="checkbox" checked={ filters.front || false } color="primary" onChange={ setAndApplyFilter.bind(null, 'showfront', !filters.showfront) } active={filters.front || false}/>{t('filter.front')} */}
-              <Button color="primary" onClick={() => this.togglefront()} active={filters.front || false}>{t('filter.front')}</Button>
-            </Col>
-            <Col xs="4">
+        <div>
+      <nav className='filterList'
+        ref={(elem) => {
+          this.nav = elem;
+        }}
+      >
+      <input class="menu-btn" type="checkbox" id="menu-btn" />
+      <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+        <ul className="menu">
+        <li>
+              <Button color="primary" className="menuitem" onClick={() => this.togglefront()} active={filters.front || false}>{t('filter.front')}</Button>
+            </li>
+            <li>
               <Button color="primary" onClick={() => this.togglepool()} active={filters.pool || false}>{t('filter.pool')}</Button>
-            </Col>
-            <Col xs="4">
+            </li>
+            <li>
               <Button color="primary" onClick={() => this.toggleback()} active={filters.back || false}>{t('filter.back')}</Button>
-            </Col>
-            <Col xs="4">
-              <Button color="primary" onClick={() => this.togglewall()} active={filters.wall || false}>{t('filter.wall')}</Button>
-            </Col>
-            <Col xs="4">
+            </li>
+            <li>
+            <Button color="primary" onClick={() => this.togglewall()} active={filters.wall || false}>{t('filter.wall')}</Button>
+            </li>
+            <li>
               <Button color="primary" onClick={() => this.togglesidewalk()} active={filters.sidewalk || false}>{t('filter.sidewalk')}</Button>
-            </Col>
-            <Col xs="4">
+            </li>
+            <li>
               <Button color="primary" onClick={() => this.togglepave()} active={filters.pave || false}>{t('filter.pave')}</Button>
-            </Col>
-            <Col xs="4">
+            </li>
+            <li>
               <Button color="primary" onClick={() => this.toggleedging()} active={filters.edging || false}>{t('filter.edging')}</Button>
-            </Col>
-            <Col xs="4">
+            </li>
+            <li>
               <Button color="primary" onClick={() => this.togglestair()} active={filters.stair || false}>{t('filter.stair')}</Button>
-            </Col>
-            <Col xs="4">
+            </li>
+            <li>
               <Button color="primary" onClick={() => this.toggleflower()} active={filters.flower || false}>{t('filter.flower')}</Button>
-            </Col>
-            <Col xs="4">
+            </li>
+            <li>
               <Button color="primary" onClick={() => this.toggleretainingwall()} active={filters.retainingwall || false}>{t('filter.retainingwall')}</Button>
-            </Col>
-            <Col xs="4">
+            </li>
+            <li>
               <Button color="primary" onClick={() => this.toggleasphalt()} active={filters.asphalt || false}>{t('filter.asphalt')}</Button>
-            </Col>
-           
-            <Col xs="3">
+            </li>
+            <li>
             <Button
               type="button"
               className="clearBoxe"
@@ -234,10 +251,14 @@ class List extends Component {
             >
               Clear
             </Button>
-            </Col>
-      
-        </Row>
-        </div>
+            </li>
+    
+        </ul>
+      </nav>
+      </div>
+        
+    
+        
        
 <div id="photos">
 
