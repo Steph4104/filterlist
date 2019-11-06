@@ -271,7 +271,8 @@ class List extends Component {
                 info,
               }) => (
          
-                  <img key={id}  onClick={(event) => this.toggle(src)} src={require(`img/${src}.jpg`)} alt="Card image cap" />
+                  //<img key={id}  onClick={(event) => this.toggle(src)} src='https://via.placeholder.com/150' alt="Card image cap" />
+              <div>{id}</div>
 
               ))
             }
