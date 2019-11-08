@@ -47,17 +47,12 @@ class List extends Component {
       isExpanded: false
     };
     this.toggle = this.toggle.bind(this);
-    this.togglesidewalk = this.toggleCheckbox.bind(this, 'sidewalk');
-    this.togglepool = this.toggleCheckbox.bind(this, 'pool');
-    this.toggleback = this.toggleCheckbox.bind(this, 'back');
-    this.togglefront = this.toggleCheckbox.bind(this, 'front');
-    this.togglewall = this.toggleCheckbox.bind(this, 'wall');
-    this.togglestair = this.toggleCheckbox.bind(this, 'stair');
-    this.toggleflower = this.toggleCheckbox.bind(this, 'flower');
-    this.togglepave = this.toggleCheckbox.bind(this, 'pave');
-    this.toggleedging = this.toggleCheckbox.bind(this, 'edging');
-    this.toggleretainingwall = this.toggleCheckbox.bind(this, 'retainingwall');
-    this.toggleasphalt = this.toggleCheckbox.bind(this, 'asphalt');
+    this.togglepoulet = this.toggleCheckbox.bind(this, 'poulet');
+    this.togglediana = this.toggleCheckbox.bind(this, 'diana');
+    this.toggledejeuner = this.toggleCheckbox.bind(this, 'dejeuner');
+    this.toggleoeuf = this.toggleCheckbox.bind(this, 'oeuf');
+    this.togglebbq = this.toggleCheckbox.bind(this, 'bbq');
+    this.togglesteak = this.toggleCheckbox.bind(this, 'steak');
     this.resetAll = this.resetAll.bind(this);
     this.setPerPage = this.setPerPage.bind(this);
     this.setPage = this.setPage.bind(this);
@@ -133,7 +128,7 @@ class List extends Component {
       },
     } = this.props;
 
-    resetFilters(['sidewalk', 'pool', 'back','retainingwall','flower', 'asphalt', 'edging','front','stair', 'wall', 'pave']);
+    resetFilters(['poulet', 'diana', 'dejeuner','oeuf','bbq', 'steak']);
   }
 
   setPerPage({ target: { value } }) {
@@ -192,7 +187,6 @@ class List extends Component {
         perPage,
       },
     } = listState;
-
     const {
       setSorting,
       resetAllFilters,
@@ -207,41 +201,26 @@ class List extends Component {
           this.nav = elem;
         }}
       >
-      <input class="menu-btn" type="checkbox" id="menu-btn" />
-      <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+      <input className="menu-btn" type="checkbox" id="menu-btn" />
+      <label className="menu-icon" htmlFor="menu-btn"><span className="navicon"></span></label>
         <ul className="menu">
         <li>
-              <Button color="primary" className="menuitem" onClick={() => this.togglefront()} active={filters.front || false}>{t('filter.front')}</Button>
+              <Button color="primary" className="menuitem" onClick={() => this.togglepoulet()} active={filters.poulet || false}>{t('filter.poulet')}</Button>
             </li>
             <li>
-              <Button color="primary" onClick={() => this.togglepool()} active={filters.pool || false}>{t('filter.pool')}</Button>
+              <Button color="primary" onClick={() => this.togglediana()} active={filters.diana || false}>{t('filter.diana')}</Button>
             </li>
             <li>
-              <Button color="primary" onClick={() => this.toggleback()} active={filters.back || false}>{t('filter.back')}</Button>
+              <Button color="primary" onClick={() => this.toggledejeuner()} active={filters.dejeuner || false}>{t('filter.dejeuner')}</Button>
             </li>
             <li>
-            <Button color="primary" onClick={() => this.togglewall()} active={filters.wall || false}>{t('filter.wall')}</Button>
+            <Button color="primary" onClick={() => this.toggleoeuf()} active={filters.oeuf || false}>{t('filter.oeuf')}</Button>
             </li>
             <li>
-              <Button color="primary" onClick={() => this.togglesidewalk()} active={filters.sidewalk || false}>{t('filter.sidewalk')}</Button>
+              <Button color="primary" onClick={() => this.togglebbq()} active={filters.bbq || false}>{t('filter.bbq')}</Button>
             </li>
             <li>
-              <Button color="primary" onClick={() => this.togglepave()} active={filters.pave || false}>{t('filter.pave')}</Button>
-            </li>
-            <li>
-              <Button color="primary" onClick={() => this.toggleedging()} active={filters.edging || false}>{t('filter.edging')}</Button>
-            </li>
-            <li>
-              <Button color="primary" onClick={() => this.togglestair()} active={filters.stair || false}>{t('filter.stair')}</Button>
-            </li>
-            <li>
-              <Button color="primary" onClick={() => this.toggleflower()} active={filters.flower || false}>{t('filter.flower')}</Button>
-            </li>
-            <li>
-              <Button color="primary" onClick={() => this.toggleretainingwall()} active={filters.retainingwall || false}>{t('filter.retainingwall')}</Button>
-            </li>
-            <li>
-              <Button color="primary" onClick={() => this.toggleasphalt()} active={filters.asphalt || false}>{t('filter.asphalt')}</Button>
+              <Button color="primary" onClick={() => this.togglesteak()} active={filters.steak || false}>{t('filter.steak')}</Button>
             </li>
             <li>
             <Button
@@ -265,14 +244,15 @@ class List extends Component {
             {
               items.map(({
                 id,
-                src,
+                titre,
                 owner,
                 color,
                 info,
               }) => (
-         
-                  //<img key={id}  onClick={(event) => this.toggle(src)} src='https://via.placeholder.com/150' alt="Card image cap" />
-              <div>{id}</div>
+         <div>
+                  <img key={id}  onClick={(event) => this.toggle(titre)} src='https://via.placeholder.com/150' alt="Card image cap" />
+                  {titre}</div>
+             // <div>{id}</div>
 
               ))
             }

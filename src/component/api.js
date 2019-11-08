@@ -1,4 +1,5 @@
-import Images from './images';
+//import Images from './images';
+import axios from 'axios';
 
 function delay(time) {
   return new Promise((resolve) => {
@@ -8,27 +9,25 @@ function delay(time) {
   });
 }
 
-const images = Images();
-
 export async function loadImages(params) {
   const page = params.page || 1;
   const perPage = 9;
-
-  // const brand = (params.brand || '').toLowerCase();
-  // const owner = (params.owner || '').toLowerCase();
-
-  const sidewalk = Boolean(params.sidewalk);
-  const pool = Boolean(params.pool);
-  const back = Boolean(params.back);
-  const front = Boolean(params.front);
-  const wall = Boolean(params.wall);
-  const stair = Boolean(params.stair);
-  const flower = Boolean(params.flower);
-  const edging = Boolean(params.edging);
-  const retainingwall = Boolean(params.retainingwall);
-  const asphalt = Boolean(params.asphalt);
-  const pave = Boolean(params.pave);
-  
+  const images =
+            await axios.get('http://restapireact.sclmedia.ca/api/contacts.php')
+             .then(function(response){  
+                     return response.data
+              })
+            
+              .catch(function(error){
+                     console.log(error);
+                 });
+            
+  const poulet = Boolean(params.poulet);
+  const diana = Boolean(params.diana);
+  const dejeuner = Boolean(params.dejeuner);
+  const bbq = Boolean(params.bbq);
+  const steak = Boolean(params.steak);
+  const oeuf = Boolean(params.oeuf);
 
   const { sort } = params.sort;
   const desc = sort && sort[0] === '-';
@@ -42,50 +41,28 @@ export async function loadImages(params) {
     images;
 
   const filteredImages = sortedImages.filter((image) => {
-    if (!sidewalk && !pool && !back && !front && !wall && !stair && !flower && !edging && !retainingwall && !asphalt && !pave) {
+    if (!poulet && !diana && !dejeuner && !bbq && !steak && !oeuf) {
       return true
     }
-    // if (brand && !car.brand.toLowerCase().includes(brand)) {
-    //   return false;
-    // }
 
-    // if (owner && !car.owner.toLowerCase().includes(owner)) {
-    //   return false;
-    // }
-
-    var info_select = image.info.split(',');
-    for (var i=0; i < info_select.length; i++){
-      if(sidewalk && info_select[i]=== 'sidewalk'){
+    var tags_select = image.tags.split(',');
+    for (var i=0; i < tags_select.length; i++){
+      if(poulet && tags_select[i]=== 'poulet'){
         return true
       }
-      if(pool && info_select[i]=== 'pool'){
+      if(diana && tags_select[i]=== 'diana'){
         return true
       }
-      if(back && info_select[i]=== 'back'){
+      if(dejeuner && tags_select[i]=== 'dejeuner'){
         return true
       }
-      if(front && info_select[i]=== 'front'){
+      if(bbq && tags_select[i]=== 'bbq'){
         return true
       }
-      if(wall && info_select[i]=== 'wall'){
+      if(steak && tags_select[i]=== 'steak'){
         return true
       }
-      if(stair && info_select[i]=== 'stair'){
-        return true
-      }
-      if(flower && info_select[i]=== 'flower'){
-        return true
-      }
-      if(edging && info_select[i]=== 'edging'){
-        return true
-      }
-      if(pave && info_select[i]=== 'pave'){
-        return true
-      }
-      if(retainingwall && info_select[i]=== 'retainingwall'){
-        return true
-      }
-      if(asphalt && info_select[i]=== 'asphalt'){
+      if(oeuf && tags_select[i]=== 'oeuf'){
         return true
       }
   }
