@@ -1,6 +1,7 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import List from './List'
+import Add from './Add'
 
 
 // The Main component renders one of the three provided
@@ -12,6 +13,7 @@ const Main = () => (
   <main>
     <Switch>
       <Route exact path='/' component={List}/>
+      <Route exact path='/Add' component={Add}/>
     </Switch>
   </main>
 )

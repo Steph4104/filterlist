@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withNamespaces, NamespacesConsumer, Trans } from 'react-i18next';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom'
 //import { toElement as scrollToElement } from '@utils/scroll';
 //import Logo from './img/logo_paveunisousa.jpg';
 import '../styles/Menu.scss';
@@ -76,6 +77,7 @@ class Menu extends Component {
           >
             {t('menu.contact')}
           </div> */}
+             <Link to="/Add">Add</Link>
           <div
             className="menu-item"
             onClick={() => i18n.changeLanguage(lang)}
