@@ -16,10 +16,11 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Container, Row, Col, Card, 
 
 import * as api from '../component/api';
 
-import Example from '../component/Menu';
-import { NavLink, Link } from 'react-router-dom'
+import Menu from '../component/Menu';
+import { NavLink, Link, Redirect } from 'react-router-dom'
 import { withNamespaces, NamespacesConsumer, Trans } from 'react-i18next';
 import styled from "styled-components";
+
 
 /**
  * @param {...String} queryNames
@@ -34,6 +35,7 @@ class List extends Component {
     listActions: listActionsShape,
   }
 
+
   static defaultProps = {
     listState: null,
     listActions: null,
@@ -44,6 +46,8 @@ class List extends Component {
     this.state = {
       modal: false,
       src:"",
+      id:"",
+      titre:"",
       isExpanded: false
     };
     this.toggle = this.toggle.bind(this);
@@ -60,12 +64,10 @@ class List extends Component {
     this.reloadListener();
   }
 
-  
-
   toggle(src) {
   this.setState(prevState => ({
     modal: !prevState.modal,
-    src:src
+    src:src,
   }));
 }
   reloadListener() {
@@ -157,6 +159,14 @@ class List extends Component {
       isExpanded: !this.state.isExpanded
     });
   }
+
+  redirect(){
+    console.log('redirect');
+    this.context.router.push({ //browserHistory.push should also work here
+      pathname: '/Add',
+      state: {key: '123'}
+    }); 
+  }
   
 
   render() {
@@ -194,7 +204,7 @@ class List extends Component {
 
     return (
       <Container>
-        <Example/>
+        <Menu/>
         <div>
       <nav className='filterList'
         ref={(elem) => {
@@ -234,11 +244,7 @@ class List extends Component {
     
         </ul>
       </nav>
-      </div>
-        
-    
-        
-       
+      </div>      
 <div id="photos">
 
             {
@@ -290,14 +296,15 @@ class List extends Component {
         <Modal isOpen={this.state.modal} toggle={(event) => this.toggle()} className={this.props.className}>
           <ModalBody>
             <img src={`src/img/${this.state.id}.jpg`} alt="Card image cap" />
-            <div>{this.state.id}</div>
+            <div>{this.state.src}</div>
             {this.state.ingredients}
             {this.state.etapes}
             {this.state.tags}
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={(event) => this.toggle()}>Close</Button>
-            <Button color="default" >Edit</Button>
+            <Link to={{ pathname: '/Add', query: { id:  this.state.src} }}>Add/Edit</Link>
+         
           </ModalFooter>
         </Modal>
       </div>

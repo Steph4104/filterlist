@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import {BrowserRouter, Switch, Route } from 'react-router-dom'
 import List from './List'
 import Add from './Add'
 
@@ -11,10 +11,12 @@ import Add from './Add'
 // when the pathname is exactly the string "/"
 const Main = () => (
   <main>
+    <BrowserRouter>
     <Switch>
       <Route exact path='/' component={List}/>
       <Route exact path='/Add' component={Add}/>
     </Switch>
+    </BrowserRouter>
   </main>
 )
 

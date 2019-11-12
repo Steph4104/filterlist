@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { withNamespaces, NamespacesConsumer, Trans } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
-//import { toElement as scrollToElement } from '@utils/scroll';
-//import Logo from './img/logo_paveunisousa.jpg';
 import '../styles/Menu.scss';
 
 class Menu extends Component {
@@ -35,56 +33,20 @@ class Menu extends Component {
     }
   }
 
-  // scrollToPage(pageSelector) {
-  //   const nextPage = document.querySelector(pageSelector);
-  //   scrollToElement(nextPage);
-  // }
-
   render() {
     const { t, i18n } = this.props;
     var lang = t('lang');
     return (
       <div>
         <div className="header">
-          <h1>Pavé Uni Sousa</h1>
-          <h3>Réalisations</h3>
-        {/* </div> */}
+          <h1>Recettes</h1>
      
       <nav
         ref={(elem) => {
           this.nav = elem;
         }}
       >
-        {/* <div className="menu"> */}
-          {/* <div className="menu-item logo">
-            <img className="img-logo" src={Logo}/>
-          </div> */}
-          {/* <div
-            className="menu-item active"
-           
-          >
-           {t('menu.about')}
-          </div>
-          <div
-            className="menu-item"
-           
-          >
-            {t('menu.project')}
-          </div>
-          <div
-            className="menu-item"
-            
-          >
-            {t('menu.contact')}
-          </div> */}
-             <Link to="/Add">Add</Link>
-          <div
-            className="menu-item"
-            onClick={() => i18n.changeLanguage(lang)}
-          >
-            {t('lang')}
-          </div>
-        
+      <Link to="/Add">Add</Link>   
       </nav> 
       </div></div>
     );
