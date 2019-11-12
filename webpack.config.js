@@ -51,6 +51,7 @@ module.exports = {
     host: '192.168.0.128',
     port:'8080',
     compress: true,
+    historyApiFallback: true,
 }
 };
 

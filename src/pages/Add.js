@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
 
 class Add extends Component {
   state = {
@@ -28,21 +29,27 @@ class Add extends Component {
     .then(function (response) {
       //handle success
       console.log(response)
+      alert('Success')
+       
     })
     .catch(function (response) {
       //handle error
       console.log(response)
     });
+    this.setState({titre:'', ingredients:'', etapes:'', link:'', tags:''})
+    alert('Clean')
   }
 
   render(){
     return (
+      <div>
+         <Link to="/">Home</Link>
       <form>
         <label>titre</label>
         <input type="text" name="titre" value={this.state.titre} onChange={e => this.setState({ titre: e.target.value })}/>
 
         <label>ingredients</label>
-        <input type="email" name="ingredients" value={this.state.ingredients} onChange={e => this.setState({ ingredients: e.target.value })}/>
+        <input type="text" name="ingredients" value={this.state.ingredients} onChange={e => this.setState({ ingredients: e.target.value })}/>
 
         <label>link</label>
         <input type="text" name="link" value={this.state.link} onChange={e => this.setState({ link: e.target.value })}/>
@@ -54,7 +61,9 @@ class Add extends Component {
         <input type="text" name="tags" value={this.state.tags} onChange={e => this.setState({ tags: e.target.value })}/>
 
         <input type="submit" onClick={e => this.handleFormSubmit(e)} value="Create Contact" />
-        </form>);
+        </form>
+        </div>
+        );
     }
 }
 export default Add;
