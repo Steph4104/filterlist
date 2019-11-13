@@ -17,7 +17,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Container, Row, Col, Card, 
 import * as api from '../component/api';
 
 import Menu from '../component/Menu';
-import { NavLink, Link, Redirect } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { withNamespaces, NamespacesConsumer, Trans } from 'react-i18next';
 import styled from "styled-components";
 
@@ -45,9 +45,13 @@ class List extends Component {
     super(props);
     this.state = {
       modal: false,
-      src:"",
+      //src:"",
       id:"",
       titre:"",
+      ingredients:"",
+      etapes:"",
+      link:"",
+      tags:"",
       isExpanded: false
     };
     this.toggle = this.toggle.bind(this);
@@ -64,10 +68,15 @@ class List extends Component {
     this.reloadListener();
   }
 
-  toggle(src) {
+  toggle(id, titre, ingredients, etapes, link, tags) {
   this.setState(prevState => ({
     modal: !prevState.modal,
-    src:src,
+    id:id,
+    titre:titre,
+    ingredients:ingredients,
+    etapes:etapes,
+    link:link,
+    tags:tags
   }));
 }
   reloadListener() {
@@ -159,14 +168,6 @@ class List extends Component {
       isExpanded: !this.state.isExpanded
     });
   }
-
-  redirect(){
-    console.log('redirect');
-    this.context.router.push({ //browserHistory.push should also work here
-      pathname: '/Add',
-      state: {key: '123'}
-    }); 
-  }
   
 
   render() {
@@ -202,6 +203,21 @@ class List extends Component {
       resetAllFilters,
     } = listActions;
 
+    let ingredients_list
+    if(this.state.ingredients){
+      ingredients_list = this.state.ingredients.split(",").map((item, index) => (
+      <li key={index} item={item}>{item}</li>
+    ))
+  }
+
+  let etapes_list
+
+  if(this.state.etapes){
+    etapes_list = this.state.etapes.split(",").map((item, index) => (
+    <p>{item}</p>
+  ))
+}
+    
     return (
       <Container>
         <Menu/>
@@ -251,14 +267,17 @@ class List extends Component {
               items.map(({
                 id,
                 titre,
-                owner,
-                color,
-                info,
+                ingredients,
+                etapes,
+                link,
+                tags
               }) => (
          <div>
-                  <img key={id}  onClick={(event) => this.toggle(id)} src='https://via.placeholder.com/150' alt="Card image cap" />
-                  {titre}
-              {id}</div>
+                <div class="container_image">
+                <img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags)} src="https://via.placeholder.com/200" alt={titre} style={{width:'100%'}} />
+                <div class="centered">{titre}</div>
+              </div>
+              </div>
 
               ))
             }
@@ -295,15 +314,19 @@ class List extends Component {
 
         <Modal isOpen={this.state.modal} toggle={(event) => this.toggle()} className={this.props.className}>
           <ModalBody>
-            <img src={`src/img/${this.state.id}.jpg`} alt="Card image cap" />
-            <div>{this.state.src}</div>
-            {this.state.ingredients}
-            {this.state.etapes}
-            {this.state.tags}
+            <img src="https://via.placeholder.com/200" alt={this.state.titre} />
+            <h3>{this.state.titre}</h3>
+          
+            <ul>
+           {ingredients_list}
+          </ul>
+          {etapes_list}
+          <br/>
+            <p>{this.state.tags}</p>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={(event) => this.toggle()}>Close</Button>
-            <Link to={{ pathname: '/Add', query: { id:  this.state.src} }}>Add/Edit</Link>
+            <button class="btn btn-success btn-flat" onClick={(event) => this.toggle()}>Close</button>
+            <button class="btn btn-success btn-flat"><Link to={{ pathname: '/Add', query: { id:  this.state.src} }}>Add/Edit</Link></button>
          
           </ModalFooter>
         </Modal>

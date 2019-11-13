@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import '../styles/Add.scss';
 
 class Add extends Component {
   state = {
@@ -10,13 +11,13 @@ class Add extends Component {
     link: '',
     tags: '',
     formtype:'',
-    id:''
+    id:'',
+    image:''
   }
 
   async componentDidMount() {
     var data_id = this.props.location.query
     var titre, ingredients, etapes, link, tags, id =''
-
     if(data_id)
     {
       id = Object.values(data_id)
@@ -42,6 +43,7 @@ class Add extends Component {
       });
       this.setState({titre:titre, ingredients:ingredients, etapes:etapes, link:link, tags:tags, id:id,formtype:'edit'})
     }else{
+      
       this.setState({formtype:'add'})
     }
 }
@@ -54,6 +56,7 @@ class Add extends Component {
     formData.append('etapes', this.state.etapes)
     formData.append('link', this.state.link)
     formData.append('tags', this.state.tags)
+    formData.append('image', this.state.image)
     
     if(this.state.formtype == 'edit'){
       formData.append('id', this.state.id)
@@ -94,7 +97,7 @@ class Add extends Component {
     });
     
     }
-   this.setState({titre:'', ingredients:'', etapes:'', link:'', tags:''})
+   this.setState({titre:'', ingredients:'', etapes:'', link:'', tags:'', image:''})
     alert('Clean')
   }
 
@@ -121,7 +124,7 @@ class Add extends Component {
 
   render(){
     let delete_button;
-    if(this.state.formtype = 'edit'){
+    if(this.state.formtype == 'edit'){
       delete_button = <button  onClick={e => this.delete(e)} value='delete'>Delete</button>
     }
     
@@ -130,25 +133,34 @@ class Add extends Component {
         
          <Link to="/">Home</Link>
          {this.state.formtype}
-      <form>
-        <label>titre</label>
-        <input type="text" name="titre" value={this.state.titre} onChange={e => this.setState({ titre: e.target.value })}/>
+      
+        <form class="form-style-9">
+          <ul>
+          <li>
+              <input type="text" name="titre" value={this.state.titre} onChange={e => this.setState({ titre: e.target.value })}class="field-style field-split align-left" placeholder="Titre" />
+              <input type="text" name="link" value={this.state.link} onChange={e => this.setState({ link: e.target.value })} class="field-style field-split align-right" placeholder="Link" />
 
-        <label>ingredients</label>
-        <input type="text" name="ingredients" value={this.state.ingredients} onChange={e => this.setState({ ingredients: e.target.value })}/>
-
-        <label>link</label>
-        <input type="text" name="link" value={this.state.link} onChange={e => this.setState({ link: e.target.value })}/>
-
-        <label>etapes</label>
-        <input type="text" name="etapes" value={this.state.etapes} onChange={e => this.setState({ etapes: e.target.value })}/>
-
-        <label>tags</label>
-        <input type="text" name="tags" value={this.state.tags} onChange={e => this.setState({ tags: e.target.value })}/>
-
-        <input type="submit" onClick={e => this.handleFormSubmit(e)} value={this.state.formtype} />
-        {delete_button}
-        </form>
+          </li>
+          <li>
+          <input className="fileInput" type="file" name="image" onChange={e => this.setState({ image: e.target.value })}/>
+              <input type="text" name="field3" class="field-style field-split align-left" placeholder="Phone" />
+              <input type="url" name="field4" class="field-style field-split align-right" placeholder="Website" />
+          </li>
+          <li>
+          <input type="text" name="tags" value={this.state.tags} onChange={e => this.setState({ tags: e.target.value })} class="field-style field-full align-none" placeholder="Tags" />
+          </li>
+          <li>
+          <textarea name="ingredients" value={this.state.ingredients} onChange={e => this.setState({ ingredients: e.target.value })} class="field-style" placeholder="Ingredients"></textarea>
+          </li>
+          <li>
+          <textarea name="etapes" value={this.state.etapes} onChange={e => this.setState({ etapes: e.target.value })} class="field-style" placeholder="Etapes"></textarea>
+          </li>
+          <li>
+          <button onClick={e => this.handleFormSubmit(e)} class="btn btn-success btn-flat">{this.state.formtype}</button>
+          </li>
+          <li> {delete_button}</li>
+          </ul>
+          </form>
         </div>
         );
     }

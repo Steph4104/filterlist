@@ -8,6 +8,7 @@ import { render } from 'react-dom';
 import List from './pages/List';
 
 import 'bootstrap/dist/css/bootstrap.css';
+import './styles/Costum.scss';
 
 import App from "./app";
 import {I18nextProvider} from 'react-i18next';

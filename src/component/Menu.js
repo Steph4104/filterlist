@@ -46,7 +46,9 @@ class Menu extends Component {
           this.nav = elem;
         }}
       >
-      <Link to="/Add">Add</Link>   
+      <Link to="/Add">
+      <button class="btn btn-success btn-flat">Add</button>
+      </Link>   
       </nav> 
       </div></div>
     );
