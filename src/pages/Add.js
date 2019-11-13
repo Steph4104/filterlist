@@ -12,7 +12,8 @@ class Add extends Component {
     tags: '',
     formtype:'',
     id:'',
-    image:''
+    image:'',
+    selectedFile : null
   }
 
   async componentDidMount() {
@@ -51,12 +52,14 @@ class Add extends Component {
   handleFormSubmit( event ) {
     event.preventDefault();
     let formData = new FormData();
+    
     formData.append('titre', this.state.titre)
     formData.append('ingredients', this.state.ingredients)
     formData.append('etapes', this.state.etapes)
     formData.append('link', this.state.link)
     formData.append('tags', this.state.tags)
-    formData.append('image', this.state.image)
+    //formData.append('image', this.state.image)
+    formData.append('image', this.state.image, this.state.image.name);
     
     if(this.state.formtype == 'edit'){
       formData.append('id', this.state.id)
@@ -142,7 +145,7 @@ class Add extends Component {
 
           </li>
           <li>
-          <input className="fileInput" type="file" name="image" onChange={e => this.setState({ image: e.target.value })}/>
+          <input className="fileInput" type="file" name="image" onChange={e => this.setState({ image: e.target.files[0] })}/>
               <input type="text" name="field3" class="field-style field-split align-left" placeholder="Phone" />
               <input type="url" name="field4" class="field-style field-split align-right" placeholder="Website" />
           </li>
@@ -166,3 +169,36 @@ class Add extends Component {
     }
 }
 export default Add;
+
+// import React, { Component } from 'react';
+// import ReactDOM from 'react-dom';
+// import axios from 'axios';
+// class Add extends React.Component{
+//   state = {
+//     selectedFile : null
+//   }
+//   fileSelect = event => {
+//     this.setState({selectedFile: event.target.files[0]})
+//     console.log(event.target.files[0])
+//   }
+//   fileUpload = () => {
+//     const fd = new FormData();
+//     fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
+//     axios.post('http://restapireact.sclmedia.ca/api/contacts.php', fd
+//     ).then(res=>
+//     {
+//     console.log(res);
+//     }
+//     );
+    
+//   }
+//   render() {
+//     return (
+//   <div>
+//     <input type="file" onChange = {this.fileSelect} />
+//   <button onClick = {this.fileUpload}>Upload</button>
+//   </div>
+//     );
+//   }
+//   }
+ // export default Add;
