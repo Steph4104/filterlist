@@ -52,6 +52,7 @@ class List extends Component {
       etapes:"",
       link:"",
       tags:"",
+      image:"",
       isExpanded: false
     };
     this.toggle = this.toggle.bind(this);
@@ -68,7 +69,7 @@ class List extends Component {
     this.reloadListener();
   }
 
-  toggle(id, titre, ingredients, etapes, link, tags) {
+  toggle(id, titre, ingredients, etapes, link, tags, image) {
   this.setState(prevState => ({
     modal: !prevState.modal,
     id:id,
@@ -76,7 +77,8 @@ class List extends Component {
     ingredients:ingredients,
     etapes:etapes,
     link:link,
-    tags:tags
+    tags:tags,
+    image:image
   }));
 }
   reloadListener() {
@@ -217,6 +219,8 @@ class List extends Component {
     <p>{item}</p>
   ))
 }
+
+
     
     return (
       <Container>
@@ -270,11 +274,24 @@ class List extends Component {
                 ingredients,
                 etapes,
                 link,
-                tags
-              }) => (
-         <div>
-                <div class="container_image">
-                <img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags)} src="https://via.placeholder.com/200" alt={titre} style={{width:'100%'}} />
+                tags,
+                image
+              }) => (           
+                
+
+         <div> 
+           <div class="container_image">
+                {image == "" ? (
+             // console.log('empty image') 
+            // image = "http://restapireact.sclmedia.ca/api/img/"+image)
+            <img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags,"https://via.placeholder.com/200")} src="https://via.placeholder.com/200" alt={titre} style={{width:'100%'}} />
+            )
+              
+               : (<img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags, "http://restapireact.sclmedia.ca/api/img/"+image)} src={"http://restapireact.sclmedia.ca/api/img/"+image} alt={titre} style={{width:'100%'}} />
+                  //image = "https://via.placeholder.com/200"
+                )
+            }
+               
                 <div class="centered">{titre}</div>
               </div>
               </div>
@@ -314,7 +331,7 @@ class List extends Component {
 
         <Modal isOpen={this.state.modal} toggle={(event) => this.toggle()} className={this.props.className}>
           <ModalBody>
-            <img src="https://via.placeholder.com/200" alt={this.state.titre} />
+            <img src={this.state.image} alt={this.state.titre} />
             <h3>{this.state.titre}</h3>
           
             <ul>
