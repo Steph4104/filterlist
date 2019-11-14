@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withNamespaces, NamespacesConsumer, Trans } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 import '../styles/Menu.scss';
@@ -34,8 +33,7 @@ class Menu extends Component {
   }
 
   render() {
-    const { t, i18n } = this.props;
-    var lang = t('lang');
+
     return (
       <div>
         <div className="header">
@@ -60,4 +58,4 @@ Menu.contextTypes = {
   switchTheme: PropTypes.func
 };
 
-export default withNamespaces('translation')(Menu);
+export default (Menu);

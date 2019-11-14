@@ -65,7 +65,7 @@ class Add extends Component {
     formData.append('etapes', this.state.etapes)
     formData.append('link', this.state.link)
     formData.append('tags', this.state.tags)
-    formData.append('image', this.state.image, this.state.image.name);
+    formData.append('image', this.state.image);
     formData.append('temps_cuisson', this.state.temps_cuisson);
     formData.append('mijoteuse', this.state.mijoteuse);
     
@@ -154,8 +154,16 @@ class Add extends Component {
 
           </li>
           <li>
-              <input type="number" name="temps_cuisson" value={this.state.temps_cuisson} onChange={e => this.setState({ temps_cuisson: e.target.value })}class="field-style field-split align-left" placeholder="temps_cuisson" />
-              <input type="text" name="mojoteuse" value={this.state.mijoteuse} onChange={e => this.setState({ mijoteuse: e.target.value })} class="field-style field-split align-right" placeholder="mijoteuse" />
+              <input type="number" name="temps_cuisson" value={this.state.temps_cuisson} onChange={e => this.setState({ temps_cuisson: e.target.value })}class="field-style field-split align-left" placeholder="temps cuisson" />
+              <label>
+                Mijoteuse :
+                <input
+                name="mijoteuse"
+                type="checkbox"
+                checked={this.state.mijoteuse}
+                onChange={e => this.setState({ mijoteuse: e.target.checked })} 
+                class="field-style field-split align-right"/>
+        </label>
 
           </li>
           <li>
@@ -181,36 +189,3 @@ class Add extends Component {
     }
 }
 export default Add;
-
-// import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
-// import axios from 'axios';
-// class Add extends React.Component{
-//   state = {
-//     selectedFile : null
-//   }
-//   fileSelect = event => {
-//     this.setState({selectedFile: event.target.files[0]})
-//     console.log(event.target.files[0])
-//   }
-//   fileUpload = () => {
-//     const fd = new FormData();
-//     fd.append('image', this.state.selectedFile, this.state.selectedFile.name);
-//     axios.post('http://restapireact.sclmedia.ca/api/contacts.php', fd
-//     ).then(res=>
-//     {
-//     console.log(res);
-//     }
-//     );
-    
-//   }
-//   render() {
-//     return (
-//   <div>
-//     <input type="file" onChange = {this.fileSelect} />
-//   <button onClick = {this.fileUpload}>Upload</button>
-//   </div>
-//     );
-//   }
-//   }
- // export default Add;

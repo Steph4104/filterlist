@@ -41,7 +41,7 @@ export async function loadImages(params) {
     images;
 
   const filteredImages = sortedImages.filter((image) => {
-    if (!poulet && !diana && !dejeuner && !bbq && !steak && !oeuf) {
+    if (!poulet && !diana && !dejeuner && !oeuf && !bbq && !steak ) {
       return true
     }
 

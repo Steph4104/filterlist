@@ -18,7 +18,6 @@ import * as api from '../component/api';
 
 import Menu from '../component/Menu';
 import { Link } from 'react-router-dom'
-import { withNamespaces, NamespacesConsumer, Trans } from 'react-i18next';
 import styled from "styled-components";
 
 
@@ -175,7 +174,7 @@ class List extends Component {
   render() {
     const { isExpanded } = this.state;
 
-    const { t, i18n } = this.props;
+
     const {
       isListInited,
       listState,
@@ -235,22 +234,22 @@ class List extends Component {
       <label className="menu-icon" htmlFor="menu-btn"><span className="navicon"></span></label>
         <ul className="menu">
         <li>
-              <Button color="primary" className="menuitem" onClick={() => this.togglepoulet()} active={filters.poulet || false}>{t('filter.poulet')}</Button>
+              <Button color="primary" className="menuitem" onClick={() => this.togglepoulet()} active={filters.poulet || false}>poulet</Button>
             </li>
             <li>
-              <Button color="primary" onClick={() => this.togglediana()} active={filters.diana || false}>{t('filter.diana')}</Button>
+              <Button color="primary" onClick={() => this.togglediana()} active={filters.diana || false}>diana</Button>
             </li>
             <li>
-              <Button color="primary" onClick={() => this.toggledejeuner()} active={filters.dejeuner || false}>{t('filter.dejeuner')}</Button>
+              <Button color="primary" onClick={() => this.toggledejeuner()} active={filters.dejeuner || false}>dejeuner</Button>
             </li>
             <li>
-            <Button color="primary" onClick={() => this.toggleoeuf()} active={filters.oeuf || false}>{t('filter.oeuf')}</Button>
+            <Button color="primary" onClick={() => this.toggleoeuf()} active={filters.oeuf || false}>oeuf</Button>
             </li>
             <li>
-              <Button color="primary" onClick={() => this.togglebbq()} active={filters.bbq || false}>{t('filter.bbq')}</Button>
+              <Button color="primary" onClick={() => this.togglebbq()} active={filters.bbq || false}>bbq</Button>
             </li>
             <li>
-              <Button color="primary" onClick={() => this.togglesteak()} active={filters.steak || false}>{t('filter.steak')}</Button>
+              <Button color="primary" onClick={() => this.togglesteak()} active={filters.steak || false}>steak</Button>
             </li>
             <li>
             <Button
@@ -438,4 +437,4 @@ export default createFilterlist({
     && location.search !== prevProps.location.search,
 
   isRecountAsync: true,
-}) (withNamespaces('translation')(List));
+}) (List);
