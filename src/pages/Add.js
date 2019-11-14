@@ -13,12 +13,14 @@ class Add extends Component {
     formtype:'',
     id:'',
     image:'',
+    temps_cuisson:'',
+    mijoteuse:'',
     selectedFile : null
   }
 
   async componentDidMount() {
     var data_id = this.props.location.query
-    var titre, ingredients, etapes, link, tags, id =''
+    var titre, ingredients, etapes, link, tags, id, image, temps_cuisson, mijoteuse =''
     if(data_id)
     {
       id = Object.values(data_id)
@@ -35,14 +37,19 @@ class Add extends Component {
         etapes = response.data[0]['etapes']
         link = response.data[0]['link']
         tags = response.data[0]['tags']
-        id = response.data[0]['id']        
+        id = response.data[0]['id']  
+        image = response.data[0]['image']    
+        temps_cuisson = response.data[0]['temps_cuisson']       
+
+        mijoteuse = response.data[0]['mijoteuse']       
+        
          
       })
       .catch(function (response) {
         //handle error
         console.log(response)
       });
-      this.setState({titre:titre, ingredients:ingredients, etapes:etapes, link:link, tags:tags, id:id,formtype:'edit'})
+      this.setState({titre:titre, ingredients:ingredients, etapes:etapes, link:link, tags:tags, id:id,formtype:'edit', image:image, temps_cuisson:temps_cuisson, mijoteuse:mijoteuse})
     }else{
       
       this.setState({formtype:'add'})
@@ -58,8 +65,10 @@ class Add extends Component {
     formData.append('etapes', this.state.etapes)
     formData.append('link', this.state.link)
     formData.append('tags', this.state.tags)
-    //formData.append('image', this.state.image)
     formData.append('image', this.state.image, this.state.image.name);
+    formData.append('temps_cuisson', this.state.temps_cuisson);
+    formData.append('mijoteuse', this.state.mijoteuse);
+    
     
     if(this.state.formtype == 'edit'){
       formData.append('id', this.state.id)
@@ -100,7 +109,7 @@ class Add extends Component {
     });
     
     }
-   this.setState({titre:'', ingredients:'', etapes:'', link:'', tags:'', image:''})
+   this.setState({titre:'', ingredients:'', etapes:'', link:'', tags:'', image:'', temps_cuisson:'', mijoteuse:''})
     alert('Clean')
   }
 
@@ -145,9 +154,12 @@ class Add extends Component {
 
           </li>
           <li>
+              <input type="number" name="temps_cuisson" value={this.state.temps_cuisson} onChange={e => this.setState({ temps_cuisson: e.target.value })}class="field-style field-split align-left" placeholder="temps_cuisson" />
+              <input type="text" name="mojoteuse" value={this.state.mijoteuse} onChange={e => this.setState({ mijoteuse: e.target.value })} class="field-style field-split align-right" placeholder="mijoteuse" />
+
+          </li>
+          <li>
           <input className="fileInput" type="file" name="image" onChange={e => this.setState({ image: e.target.files[0] })}/>
-              <input type="text" name="field3" class="field-style field-split align-left" placeholder="Phone" />
-              <input type="url" name="field4" class="field-style field-split align-right" placeholder="Website" />
           </li>
           <li>
           <input type="text" name="tags" value={this.state.tags} onChange={e => this.setState({ tags: e.target.value })} class="field-style field-full align-none" placeholder="Tags" />

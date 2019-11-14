@@ -343,7 +343,7 @@ class List extends Component {
           </ModalBody>
           <ModalFooter>
             <button class="btn btn-success btn-flat" onClick={(event) => this.toggle()}>Close</button>
-            <button class="btn btn-success btn-flat"><Link to={{ pathname: '/Add', query: { id:  this.state.src} }}>Add/Edit</Link></button>
+            <button class="btn btn-success btn-flat"><Link to={{ pathname: '/Add', query: { id:  this.state.id} }}>Add/Edit</Link></button>
          
           </ModalFooter>
         </Modal>
