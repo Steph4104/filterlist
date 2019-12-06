@@ -47,9 +47,12 @@
   
   #photos img {
     /* Just in case there are inline attributes */
-    width: 100% !important;
-    height: auto !important;
-padding:1%;
+    //width: 100% !important;
+    height: 370px;
+    padding: 1%;
+    max-height: 370px;
+    margin: auto;
+    display: block;
   }
 
 
@@ -100,7 +103,7 @@ padding:1%;
 
   @media (min-width: 576px) {
       .modal-dialog {
-    max-width: 50% !important;
+    max-width: 80% !important;
     margin: 1.75rem auto;
 }
   }
@@ -312,6 +315,8 @@ nav {
   position: relative;
   max-width: 800px; /* Maximum width */
   margin: 0 auto; /* Center it */
+  
+  max-height: 370px;
 }
 
 .container_image .centered {
@@ -429,4 +434,67 @@ nav {
     @include btn-flat(#F71E05, rgb(243, 109, 79), #EF5734, #FBA359, rgb(255, 217, 187), rgb(248, 177, 118));
     
   }
+}
+
+// #grid { 
+//   display: grid;
+//   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+//   grid-gap: 20px;
+//   align-items: stretch;
+//   }
+// .responsive img {
+//   border: 1px solid #ccc;
+//   box-shadow: 2px 2px 6px 0px  rgba(0,0,0,0.3);
+//   max-width: 100%;
+//   object-fit: cover;
+//   max-height: 100%;
+// }
+
+/* Flex styles -------------------------------------------------*/
+
+/* Grid styles -------------------------------------------------*/
+#grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-gap: 30px;
+  @include breakpoint-small-only {
+    grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+  }
+   
+}
+@include breakpoint-small-down {
+  #grid {
+    grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+  }
+    }
+
+    @media (max-width: 1000px){
+      #grid {
+        grid-template-columns: repeat(auto-fill, minmax(375px, 1fr));
+      }
+    }
+
+/* Generic styles ----------------------------------------------*/
+
+#grid {
+  max-width: 960px;
+  margin: 0 auto 30px;
+}
+
+.responsive {
+  position: relative;
+}
+
+.responsive img {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.desc {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
 }

@@ -264,7 +264,7 @@ class List extends Component {
         </ul>
       </nav>
       </div>      
-<div id="photos">
+<div id="grid">
 
             {
               items.map(({
@@ -278,22 +278,24 @@ class List extends Component {
               }) => (           
                 
 
-         <div> 
-           <div class="container_image">
+         
+           <div class="responsive">
+          
                 {image == "" ? (
              // console.log('empty image') 
             // image = "http://restapireact.sclmedia.ca/api/img/"+image)
-            <img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags,"https://via.placeholder.com/200")} src="https://via.placeholder.com/200" alt={titre} style={{width:'100%'}} />
+            <img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags,"https://via.placeholder.com/200")} src="https://via.placeholder.com/200" alt={titre} />
             )
               
-               : (<img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags, "http://restapireact.sclmedia.ca/api/img/"+image)} src={"http://restapireact.sclmedia.ca/api/img/"+image} alt={titre} style={{width:'100%'}} />
+               : (<img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags, "http://restapireact.sclmedia.ca/api/img/"+image)} src={"http://restapireact.sclmedia.ca/api/img/"+image} alt={titre} />
                   //image = "https://via.placeholder.com/200"
                 )
             }
                
-                <div class="centered">{titre}</div>
+                <div class="desc">{titre}</div>
+            
               </div>
-              </div>
+             
 
               ))
             }
