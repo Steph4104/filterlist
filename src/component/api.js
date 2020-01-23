@@ -22,12 +22,11 @@ export async function loadImages(params) {
                      console.log(error);
                  });
             
-  const poulet = Boolean(params.poulet);
-  const diana = Boolean(params.diana);
   const dejeuner = Boolean(params.dejeuner);
-  const bbq = Boolean(params.bbq);
-  const steak = Boolean(params.steak);
-  const oeuf = Boolean(params.oeuf);
+  const diner = Boolean(params.diner);
+  const souper = Boolean(params.souper);
+  const entree = Boolean(params.entree);
+  const dessert = Boolean(params.dessert);
 
   const { sort } = params.sort;
   const desc = sort && sort[0] === '-';
@@ -41,28 +40,25 @@ export async function loadImages(params) {
     images;
 
   const filteredImages = sortedImages.filter((image) => {
-    if (!poulet && !diana && !dejeuner && !oeuf && !bbq && !steak ) {
+    if (!diner && !souper && !dejeuner && !entree && !dessert ) {
       return true
     }
 
     var tags_select = image.tags.split(',');
     for (var i=0; i < tags_select.length; i++){
-      if(poulet && tags_select[i]=== 'poulet'){
+      if(souper && tags_select[i]=== 'souper'){
         return true
       }
-      if(diana && tags_select[i]=== 'diana'){
+      if(diner && tags_select[i]=== 'diner'){
         return true
       }
       if(dejeuner && tags_select[i]=== 'dejeuner'){
         return true
       }
-      if(bbq && tags_select[i]=== 'bbq'){
+      if(entree && tags_select[i]=== 'entree'){
         return true
       }
-      if(steak && tags_select[i]=== 'steak'){
-        return true
-      }
-      if(oeuf && tags_select[i]=== 'oeuf'){
+      if(dessert && tags_select[i]=== 'dessert'){
         return true
       }
   }

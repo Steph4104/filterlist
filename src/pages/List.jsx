@@ -19,7 +19,8 @@ import * as api from '../component/api';
 import Menu from '../component/Menu';
 import { Link } from 'react-router-dom'
 import styled from "styled-components";
-
+import axios from 'axios';
+const API_URL = 'http://restapireact.sclmedia.ca/api/contacts.php'
 
 /**
  * @param {...String} queryNames
@@ -52,21 +53,25 @@ class List extends Component {
       link:"",
       tags:"",
       image:"",
-      isExpanded: false
+      isExpanded: false,
+      query: '',
+      results: []
     };
     this.toggle = this.toggle.bind(this);
-    this.togglepoulet = this.toggleCheckbox.bind(this, 'poulet');
-    this.togglediana = this.toggleCheckbox.bind(this, 'diana');
     this.toggledejeuner = this.toggleCheckbox.bind(this, 'dejeuner');
-    this.toggleoeuf = this.toggleCheckbox.bind(this, 'oeuf');
-    this.togglebbq = this.toggleCheckbox.bind(this, 'bbq');
-    this.togglesteak = this.toggleCheckbox.bind(this, 'steak');
+    this.togglediner = this.toggleCheckbox.bind(this, 'diner');
+    this.togglesouper = this.toggleCheckbox.bind(this, 'souper');
+    this.toggleentree = this.toggleCheckbox.bind(this, 'entree');
+    this.toggledessert = this.toggleCheckbox.bind(this, 'dessert');
     this.resetAll = this.resetAll.bind(this);
     this.setPerPage = this.setPerPage.bind(this);
     this.setPage = this.setPage.bind(this);
+    this.getInfo = this.getInfo.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
 
     this.reloadListener();
   }
+  
 
   toggle(id, titre, ingredients, etapes, link, tags, image) {
   this.setState(prevState => ({
@@ -140,7 +145,7 @@ class List extends Component {
       },
     } = this.props;
 
-    resetFilters(['poulet', 'diana', 'dejeuner','oeuf','bbq', 'steak']);
+    resetFilters(['souper', 'diner', 'dejeuner','entree','dessert']);
   }
 
   setPerPage({ target: { value } }) {
@@ -170,6 +175,41 @@ class List extends Component {
     });
   }
   
+  handleInputChange(e){
+    this.setState({
+      query: this.search.value
+    }, () => {
+      if (this.state.query && this.state.query.length > 1) {
+        if (this.state.query.length % 2 === 0) {
+          this.getInfo(e)
+        }
+      } 
+    })
+  }
+
+  getInfo(e){
+    let formData = new FormData();
+    //axios.get(`${API_URL}?api_key=${API_KEY}&prefix=${this.state.query}&limit=7`)
+    formData.append('search', this.state.query)
+    axios({
+      method: 'get',
+      url: 'http://restapireact.sclmedia.ca/api/contacts.php?search='+this.state.query,
+      data: formData,
+      config: { headers: {'Content-Type': 'multipart/form-data' }}
+    }).then((response) => { 
+      console.log('response data'+response.data) 
+      this.setState({
+        results: response.data
+      })
+     // return response.data
+})
+
+      // .then(({ response }) => {
+      //   this.setState({
+      //     results: response.data
+      //   })
+      // })
+  }
 
   render() {
     const { isExpanded } = this.state;
@@ -219,10 +259,37 @@ class List extends Component {
   ))
 }
 
+const Suggestions = (props) => {
+  const options = props.results.map(r => (
+    <li key={r.id}>
+      {r.titre}
+    </li>
+  ))
+  return <ul>{options}</ul>
+}
 
-    
+let recette_results
+
+if(this.state.results != ''){
+  recette_results = this.state.results
+  
+}else{
+  recette_results = items
+  
+}
+
+
+
     return (
       <Container>
+        <form>
+       <input
+         placeholder="Search for..."
+         ref={input => this.search = input}
+         onChange={this.handleInputChange}
+       />
+        {/* <Suggestions results={this.state.results} /> */}
+     </form>
         <Menu/>
         <div>
       <nav className='filterList'
@@ -234,22 +301,19 @@ class List extends Component {
       <label className="menu-icon" htmlFor="menu-btn"><span className="navicon"></span></label>
         <ul className="menu">
         <li>
-              <Button color="primary" className="menuitem" onClick={() => this.togglepoulet()} active={filters.poulet || false}>poulet</Button>
+              <Button color="primary" className="menuitem" onClick={() => this.toggledejeuner()} active={filters.dejeuner || false}>Déjeuner</Button>
             </li>
             <li>
-              <Button color="primary" onClick={() => this.togglediana()} active={filters.diana || false}>diana</Button>
+              <Button color="primary" onClick={() => this.togglediner()} active={filters.diner || false}>Diner</Button>
             </li>
             <li>
-              <Button color="primary" onClick={() => this.toggledejeuner()} active={filters.dejeuner || false}>dejeuner</Button>
+              <Button color="primary" onClick={() => this.togglesouper()} active={filters.souper || false}>Souper</Button>
             </li>
             <li>
-            <Button color="primary" onClick={() => this.toggleoeuf()} active={filters.oeuf || false}>oeuf</Button>
+            <Button color="primary" onClick={() => this.toggleentree()} active={filters.entree || false}>Entrée</Button>
             </li>
             <li>
-              <Button color="primary" onClick={() => this.togglebbq()} active={filters.bbq || false}>bbq</Button>
-            </li>
-            <li>
-              <Button color="primary" onClick={() => this.togglesteak()} active={filters.steak || false}>steak</Button>
+              <Button color="primary" onClick={() => this.toggledessert()} active={filters.dessert || false}>Dessert</Button>
             </li>
             <li>
             <Button
@@ -267,7 +331,7 @@ class List extends Component {
 <div id="grid">
 
             {
-              items.map(({
+              recette_results.map(({
                 id,
                 titre,
                 ingredients,
