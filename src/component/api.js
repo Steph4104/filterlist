@@ -27,6 +27,8 @@ export async function loadImages(params) {
   const souper = Boolean(params.souper);
   const entree = Boolean(params.entree);
   const dessert = Boolean(params.dessert);
+  const side = Boolean(params.side);
+  
 
   const { sort } = params.sort;
   const desc = sort && sort[0] === '-';
@@ -40,7 +42,7 @@ export async function loadImages(params) {
     images;
 
   const filteredImages = sortedImages.filter((image) => {
-    if (!diner && !souper && !dejeuner && !entree && !dessert ) {
+    if (!diner && !souper && !dejeuner && !entree && !dessert && !side ) {
       return true
     }
 
@@ -59,6 +61,9 @@ export async function loadImages(params) {
         return true
       }
       if(dessert && tags_select[i]=== 'dessert'){
+        return true
+      }
+      if(side && tags_select[i]=== 'side'){
         return true
       }
   }

@@ -63,6 +63,7 @@ class List extends Component {
     this.togglesouper = this.toggleCheckbox.bind(this, 'souper');
     this.toggleentree = this.toggleCheckbox.bind(this, 'entree');
     this.toggledessert = this.toggleCheckbox.bind(this, 'dessert');
+    this.toggleside = this.toggleCheckbox.bind(this, 'side');
     this.resetAll = this.resetAll.bind(this);
     this.setPerPage = this.setPerPage.bind(this);
     this.setPage = this.setPage.bind(this);
@@ -145,7 +146,7 @@ class List extends Component {
       },
     } = this.props;
 
-    resetFilters(['souper', 'diner', 'dejeuner','entree','dessert']);
+    resetFilters(['souper', 'diner', 'dejeuner','entree','dessert', 'side']);
   }
 
   setPerPage({ target: { value } }) {
@@ -201,14 +202,7 @@ class List extends Component {
       this.setState({
         results: response.data
       })
-     // return response.data
 })
-
-      // .then(({ response }) => {
-      //   this.setState({
-      //     results: response.data
-      //   })
-      // })
   }
 
   render() {
@@ -314,6 +308,9 @@ if(this.state.results != ''){
             </li>
             <li>
               <Button color="primary" onClick={() => this.toggledessert()} active={filters.dessert || false}>Dessert</Button>
+            </li>
+            <li>
+              <Button color="primary" onClick={() => this.toggleside()} active={filters.side || false}>Side</Button>
             </li>
             <li>
             <Button
