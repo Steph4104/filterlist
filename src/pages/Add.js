@@ -14,13 +14,12 @@ class Add extends Component {
     id:'',
     image:'',
     temps_cuisson:'',
-    mijoteuse:'',
     selectedFile : null
   }
 
   async componentDidMount() {
     var data_id = this.props.location.query
-    var titre, ingredients, etapes, link, tags, id, image, temps_cuisson, mijoteuse =''
+    var titre, ingredients, etapes, link, tags, id, image, temps_cuisson
     if(data_id)
     {
       id = Object.values(data_id)
@@ -39,17 +38,13 @@ class Add extends Component {
         tags = response.data[0]['tags']
         id = response.data[0]['id']  
         image = response.data[0]['image']    
-        temps_cuisson = response.data[0]['temps_cuisson']       
-
-        mijoteuse = response.data[0]['mijoteuse']       
-        
-         
+        temps_cuisson = response.data[0]['temps_cuisson']            
       })
       .catch(function (response) {
         //handle error
         console.log(response)
       });
-      this.setState({titre:titre, ingredients:ingredients, etapes:etapes, link:link, tags:tags, id:id,formtype:'edit', image:image, temps_cuisson:temps_cuisson, mijoteuse:mijoteuse})
+      this.setState({titre:titre, ingredients:ingredients, etapes:etapes, link:link, tags:tags, id:id,formtype:'edit', image:image, temps_cuisson:temps_cuisson})
     }else{
       
       this.setState({formtype:'add'})
@@ -67,7 +62,6 @@ class Add extends Component {
     formData.append('tags', this.state.tags)
     formData.append('image', this.state.image);
     formData.append('temps_cuisson', this.state.temps_cuisson);
-    formData.append('mijoteuse', this.state.mijoteuse);
     
     
     if(this.state.formtype == 'edit'){
@@ -109,7 +103,7 @@ class Add extends Component {
     });
     
     }
-   this.setState({titre:'', ingredients:'', etapes:'', link:'', tags:'', image:'', temps_cuisson:'', mijoteuse:''})
+   this.setState({titre:'', ingredients:'', etapes:'', link:'', tags:'', image:'', temps_cuisson:''})
     alert('Clean')
   }
 
@@ -155,16 +149,6 @@ class Add extends Component {
           </li>
           <li>
               <input type="number" name="temps_cuisson" value={this.state.temps_cuisson} onChange={e => this.setState({ temps_cuisson: e.target.value })}class="field-style field-split align-left" placeholder="temps cuisson" />
-              <label>
-                Mijoteuse :
-                <input
-                name="mijoteuse"
-                type="checkbox"
-                checked={this.state.mijoteuse}
-                onChange={e => this.setState({ mijoteuse: e.target.checked })} 
-                class="field-style field-split align-right"/>
-        </label>
-
           </li>
           <li>
           <input className="fileInput" type="file" name="image" onChange={e => this.setState({ image: e.target.files[0] })}/>
