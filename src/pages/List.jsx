@@ -211,6 +211,14 @@ class List extends Component {
     window.location.reload();
   }
 
+  convertMinsToHrsMins(mins) {
+    let h = Math.floor(mins / 60);
+    let m = mins % 60;
+    h = h < 10 ? '0' + h : h;
+    m = m < 10 ? '0' + m : m;
+    return `${h}:${m}`;
+  }
+
   render() {
     const { isExpanded } = this.state;
 
@@ -350,13 +358,10 @@ if(this.state.results != ''){
            <div class="responsive">
           
                 {image == "" ? (
-             // console.log('empty image') 
-            // image = "http://restapireact.sclmedia.ca/api/img/"+image)
             <img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags,"https://via.placeholder.com/200", temps_cuisson)} src="https://via.placeholder.com/200" alt={titre} />
             )
               
                : (<img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags, "http://restapireact.sclmedia.ca/api/img/"+image,temps_cuisson)} src={"http://restapireact.sclmedia.ca/api/img/"+image} alt={titre} />
-                  //image = "https://via.placeholder.com/200"
                 )
             }
                
@@ -402,7 +407,7 @@ if(this.state.results != ''){
           <ModalBody>
             <img src={this.state.image} alt={this.state.titre} />
             <h3>{this.state.titre}</h3>
-            <h6>Temps préparation: {this.state.temps_cuisson}min</h6><br/>
+            <h6>Temps préparation: {this.convertMinsToHrsMins(this.state.temps_cuisson)}</h6><br/>
           
             <ul>
            {ingredients_list}
