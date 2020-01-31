@@ -10,31 +10,18 @@ import {
 } from '@vtaits/react-filterlist';
 import '../styles/List.scss';
 import Paginator from '../component/Paginator';
-import Th from '../component/Th';
-
-import { Modal, ModalHeader, ModalBody, ModalFooter, Container, Row, Col, Card, CardImg, CardText, CardBlock, CardTitle, CardSubtitle, CardColumns, Form, Label, Input, FormGroup, Button, ButtonGroup } from 'reactstrap';
-
+import { Modal, ModalBody, ModalFooter, Container, Button } from 'reactstrap';
 import * as api from '../component/api';
-
 import Menu from '../component/Menu';
 import { Link } from 'react-router-dom'
-import styled from "styled-components";
 import axios from 'axios';
-const API_URL = 'http://restapireact.sclmedia.ca/api/contacts.php'
 
-/**
- * @param {...String} queryNames
- */
-
-
- 
 class List extends Component {
   static propTypes = {
     isListInited: PropTypes.bool.isRequired,
     listState: createListStateShape({}),
     listActions: listActionsShape,
   }
-
 
   static defaultProps = {
     listState: null,
@@ -45,7 +32,6 @@ class List extends Component {
     super(props);
     this.state = {
       modal: false,
-      //src:"",
       id:"",
       titre:"",
       ingredients:"",
@@ -73,7 +59,6 @@ class List extends Component {
 
     this.reloadListener();
   }
-  
 
   toggle(id, titre, ingredients, etapes, link, tags, image, temps_cuisson) {
   this.setState(prevState => ({
@@ -192,7 +177,6 @@ class List extends Component {
 
   getInfo(e){
     let formData = new FormData();
-    //axios.get(`${API_URL}?api_key=${API_KEY}&prefix=${this.state.query}&limit=7`)
     formData.append('search', this.state.query)
     axios({
       method: 'get',
@@ -204,7 +188,7 @@ class List extends Component {
       this.setState({
         results: response.data
       })
-})
+    })
   }
 
   clearsearch(){
@@ -263,117 +247,87 @@ class List extends Component {
 
   if(this.state.etapes){
     etapes_list = this.state.etapes.split(",").map((item, index) => (
-    <p>{item}</p>
-  ))
-}
+      <p>{item}</p>
+    ))
+  }
 
-const Suggestions = (props) => {
-  const options = props.results.map(r => (
-    <li key={r.id}>
-      {r.titre}
-    </li>
-  ))
-  return <ul>{options}</ul>
-}
+  const Suggestions = (props) => {
+    const options = props.results.map(r => (
+      <li key={r.id}>
+        {r.titre}
+      </li>
+    ))
+    return <ul>{options}</ul>
+  }
 
-let recette_results
+  let recette_results
 
-if(this.state.results != ''){
-  recette_results = this.state.results
-  
-}else{
-  recette_results = items
-  
-}
+  if(this.state.results != ''){
+    recette_results = this.state.results
+  }else{
+    recette_results = items
+  }
 
-
-
-    return (
-      <Container>
-        <form>
-       <input
-         placeholder="Search for..."
-         ref={input => this.search = input}
-         onChange={this.handleInputChange}
-       />
+  return (
+    <Container>
+      <form>
+        <input
+          placeholder="Search for..."
+          ref={input => this.search = input}
+          onChange={this.handleInputChange}
+        />
         <Button color='danger' onClick={this.clearsearch}>Clear</Button>
-     </form>
-        <Menu/>
+      </form>
+      <Menu/>
         <div>
-      <nav className='filterList'
-        ref={(elem) => {
-          this.nav = elem;
-        }}
-      >
-      <input className="menu-btn" type="checkbox" id="menu-btn" />
-      <label className="menu-icon" htmlFor="menu-btn"><span className="navicon"></span></label>
-        <ul className="menu">
-        <li>
-              <Button color="primary" className="menuitem" onClick={() => this.toggledejeuner()} active={filters.dejeuner || false}>Déjeuner</Button>
-            </li>
-            <li>
-              <Button color="primary" onClick={() => this.togglediner()} active={filters.diner || false}>Diner</Button>
-            </li>
-            <li>
-              <Button color="primary" onClick={() => this.togglesouper()} active={filters.souper || false}>Souper</Button>
-            </li>
-            <li>
-            <Button color="primary" onClick={() => this.toggleentree()} active={filters.entree || false}>Entrée</Button>
-            </li>
-            <li>
-              <Button color="primary" onClick={() => this.toggledessert()} active={filters.dessert || false}>Dessert</Button>
-            </li>
-            <li>
-              <Button color="primary" onClick={() => this.toggleside()} active={filters.side || false}>Side</Button>
-            </li>
-            <li>
-            <Button
-              type="button"
-              className="clearBoxe"
-              onClick={this.resetAll}
-            >
-              Clear
-            </Button>
-            </li>
-    
-        </ul>
-      </nav>
-      </div>      
-<div id="grid">
-
+          <nav className='filterList'>
+            <input className="menu-btn" type="checkbox" id="menu-btn" />
+            <label className="menu-icon" htmlFor="menu-btn"><span className="navicon"></span></label>
+            <ul className="menu">
+              <li>
+                <Button color="primary" className="menuitem" onClick={() => this.toggledejeuner()} active={filters.dejeuner || false}>Déjeuner</Button>
+              </li>
+              <li>
+                <Button color="primary" onClick={() => this.togglediner()} active={filters.diner || false}>Diner</Button>
+              </li>
+              <li>
+                <Button color="primary" onClick={() => this.togglesouper()} active={filters.souper || false}>Souper</Button>
+              </li>
+              <li>
+              <Button color="primary" onClick={() => this.toggleentree()} active={filters.entree || false}>Entrée</Button>
+              </li>
+              <li>
+                <Button color="primary" onClick={() => this.toggledessert()} active={filters.dessert || false}>Dessert</Button>
+              </li>
+              <li>
+                <Button color="primary" onClick={() => this.toggleside()} active={filters.side || false}>Side</Button>
+              </li>
+              <li>
+                <Button type="button" className="clearBoxe" onClick={this.resetAll}>Clear</Button>
+              </li>
+            </ul>
+          </nav>
+        </div>      
+        <div id="grid">
             {
-              recette_results.map(({
-                id,
-                titre,
-                ingredients,
-                etapes,
-                link,
-                tags,
-                image,
-                temps_cuisson
-              }) => (           
-                
+              recette_results.map(({id, titre, ingredients, etapes, link, tags, image, temps_cuisson}) => (           
 
-         
-           <div class="responsive">
-          
-                {image == "" ? (
-            <img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags,"https://via.placeholder.com/200", temps_cuisson)} src="https://via.placeholder.com/200" alt={titre} />
-            )
-              
-               : (<img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags, "http://restapireact.sclmedia.ca/api/img/"+image,temps_cuisson)} src={"http://restapireact.sclmedia.ca/api/img/"+image} alt={titre} />
-                )
-            }
+              <div class="responsive">
+                { 
+                image == "" ? 
+                  (
+                    <img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags,"https://via.placeholder.com/200", temps_cuisson)} src="https://via.placeholder.com/200" alt={titre} />
+                  ) : (
+                  <img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags, "http://restapireact.sclmedia.ca/api/img/"+image,temps_cuisson)} src={"http://restapireact.sclmedia.ca/api/img/"+image} alt={titre} />
+                  )
+                }
                
                 <div class="desc">{titre}</div>
             
               </div>
-             
-
               ))
             }
-
-          </div>
+        </div>
         {
           additional && (
             <h4>
@@ -402,30 +356,27 @@ if(this.state.results != ''){
           )
         }
         <div>
-
-        <Modal isOpen={this.state.modal} toggle={(event) => this.toggle()} className={this.props.className}>
-          <ModalBody>
-            <img src={this.state.image} alt={this.state.titre} />
-            <h3>{this.state.titre}</h3>
-            <h6>Temps préparation: {this.convertMinsToHrsMins(this.state.temps_cuisson)}</h6><br/>
-          
-            <ul>
-           {ingredients_list}
-          </ul>
-          <div className='etapes_details'>
-         {this.state.etapes}
-         </div>
-          {/* {etapes_list} */}
-          <br/>
-            <strong>Tags: </strong><p>{this.state.tags}</p>
-          </ModalBody>
-          <ModalFooter>
-            <button class="btn btn-success btn-flat" onClick={(event) => this.toggle()}>Close</button>
-            <button class="btn btn-success btn-flat"><Link to={{ pathname: '/Add', query: { id:  this.state.id} }}>Add/Edit</Link></button>
-         
-          </ModalFooter>
-        </Modal>
-      </div>
+          <Modal isOpen={this.state.modal} toggle={(event) => this.toggle()} className={this.props.className}>
+            <ModalBody>
+              <img src={this.state.image} alt={this.state.titre} />
+              <h3>{this.state.titre}</h3>
+              <h6>Temps préparation: {this.convertMinsToHrsMins(this.state.temps_cuisson)}</h6><br/>
+            
+              <ul>
+                {ingredients_list}
+              </ul>
+              <div className='etapes_details'>
+                {this.state.etapes}
+              </div>
+              <br/>
+              <strong>Tags: </strong><p>{this.state.tags}</p>
+            </ModalBody>
+            <ModalFooter>
+              <button class="btn btn-success btn-flat" onClick={(event) => this.toggle()}>Close</button>
+              <button class="btn btn-success btn-flat"><Link to={{ pathname: '/Add', query: { id:  this.state.id} }}>Add/Edit</Link></button>
+            </ModalFooter>
+          </Modal>
+        </div>
     </Container>  
     );
   }
@@ -471,8 +422,6 @@ export default createFilterlist({
     perPage: 10,
   },
 
-  saveFiltersOnResetAll: ['perPage'],
-
   parseFiltersAndSort: async ({
     location: {
       search,
@@ -485,9 +434,6 @@ export default createFilterlist({
     } = parsed;
 
     const appliedFilters = {
-      sidewalk: Boolean(parsed.sidewalk),
-      pool: Boolean(parsed.pool),
-      back: Boolean(parsed.back),
       page: parsed.page || 1,
       perPage: parsed.perPage || 10,
     };

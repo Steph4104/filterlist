@@ -1,4 +1,3 @@
-//import Images from './images';
 import axios from 'axios';
 
 function delay(time) {
@@ -28,8 +27,6 @@ export async function loadImages(params) {
   const entree = Boolean(params.entree);
   const dessert = Boolean(params.dessert);
   const side = Boolean(params.side);
-  
-
   const { sort } = params.sort;
   const desc = sort && sort[0] === '-';
   const sortParam = sort && (desc ? sort.substring(1, sort.length) : sort);
