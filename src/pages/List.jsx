@@ -53,6 +53,7 @@ class List extends Component {
       link:"",
       tags:"",
       image:"",
+      temps_cuisson:"",
       isExpanded: false,
       query: '',
       results: []
@@ -74,7 +75,7 @@ class List extends Component {
   }
   
 
-  toggle(id, titre, ingredients, etapes, link, tags, image) {
+  toggle(id, titre, ingredients, etapes, link, tags, image, temps_cuisson) {
   this.setState(prevState => ({
     modal: !prevState.modal,
     id:id,
@@ -83,7 +84,8 @@ class List extends Component {
     etapes:etapes,
     link:link,
     tags:tags,
-    image:image
+    image:image,
+    temps_cuisson:temps_cuisson
   }));
 }
   reloadListener() {
@@ -205,6 +207,10 @@ class List extends Component {
 })
   }
 
+  clearsearch(){
+    window.location.reload();
+  }
+
   render() {
     const { isExpanded } = this.state;
 
@@ -282,7 +288,7 @@ if(this.state.results != ''){
          ref={input => this.search = input}
          onChange={this.handleInputChange}
        />
-        {/* <Suggestions results={this.state.results} /> */}
+        <Button color='danger' onClick={this.clearsearch}>Clear</Button>
      </form>
         <Menu/>
         <div>
@@ -335,7 +341,8 @@ if(this.state.results != ''){
                 etapes,
                 link,
                 tags,
-                image
+                image,
+                temps_cuisson
               }) => (           
                 
 
@@ -345,10 +352,10 @@ if(this.state.results != ''){
                 {image == "" ? (
              // console.log('empty image') 
             // image = "http://restapireact.sclmedia.ca/api/img/"+image)
-            <img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags,"https://via.placeholder.com/200")} src="https://via.placeholder.com/200" alt={titre} />
+            <img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags,"https://via.placeholder.com/200", temps_cuisson)} src="https://via.placeholder.com/200" alt={titre} />
             )
               
-               : (<img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags, "http://restapireact.sclmedia.ca/api/img/"+image)} src={"http://restapireact.sclmedia.ca/api/img/"+image} alt={titre} />
+               : (<img key={id} onClick={(event) => this.toggle(id, titre, ingredients, etapes, link, tags, "http://restapireact.sclmedia.ca/api/img/"+image,temps_cuisson)} src={"http://restapireact.sclmedia.ca/api/img/"+image} alt={titre} />
                   //image = "https://via.placeholder.com/200"
                 )
             }
@@ -395,13 +402,17 @@ if(this.state.results != ''){
           <ModalBody>
             <img src={this.state.image} alt={this.state.titre} />
             <h3>{this.state.titre}</h3>
+            <h6>Temps préparation: {this.state.temps_cuisson}min</h6><br/>
           
             <ul>
            {ingredients_list}
           </ul>
-          {etapes_list}
+          <div className='etapes_details'>
+         {this.state.etapes}
+         </div>
+          {/* {etapes_list} */}
           <br/>
-            <p>{this.state.tags}</p>
+            <strong>Tags: </strong><p>{this.state.tags}</p>
           </ModalBody>
           <ModalFooter>
             <button class="btn btn-success btn-flat" onClick={(event) => this.toggle()}>Close</button>
