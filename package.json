@@ -36,7 +36,7 @@
     "@vtaits/react-filterlist": "^0.1.0",
     "axios": "^0.19.0",
     "prop-types": "^15.6.2",
-    "qs": "^6.6.0",
+    "qs": "^6.6.1",
     "react": "16.8.4",
     "react-dom": "16.8.4",
     "react-router-dom": "^4.3.1",
